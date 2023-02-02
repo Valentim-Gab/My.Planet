@@ -1,0 +1,99 @@
+li {
+  max-width: 736px;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.53);
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  width: 100%;
+  justify-content: space-between;
+
+  img.main-img {
+    width: 101px;
+    height: 100px;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  img:not(:is(.main-img)):hover {
+    cursor: pointer;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  div.titles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  div.btn-projects {
+    justify-content: right;
+    padding: 0 20px;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: underline;
+    max-width: 45ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:visited {
+      color: #fff;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 10px;
+    width: 250px;
+    height: 300px;
+    flex-direction: column;
+    gap: 2rem;
+
+    div.info-projects {
+      max-height: 11rem;
+      margin-top: 1rem;
+    }
+
+    div {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    div.titles {
+      max-width: 220px;
+
+      p {
+        word-wrap: break-word;
+        max-width: 20ch;
+        overflow: hidden;
+        max-height: 2.5rem;
+      }
+
+      a {
+        max-width: 200px;
+      }
+    }
+
+    div.btn-projects {
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    img,
+    img.main-img {
+      border-radius: 50px;
+    }
+  }
+}

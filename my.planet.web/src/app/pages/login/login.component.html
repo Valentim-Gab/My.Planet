@@ -1,0 +1,60 @@
+<section>
+  <main>
+    <div class="main-login">
+      <div class="box-login"></div>
+      <form
+        class="login"
+        (ngSubmit)="submit()"
+        [formGroup]="formLogin"
+        #formDir="ngForm"
+      >
+        <h1>Login</h1>
+        <div class="form-control">
+          <input
+            type="email"
+            required
+            placeholder=" "
+            formControlName="email"
+          />
+          <label>
+            <span style="transition-delay: 0ms">E</span>
+            <span style="transition-delay: 50ms">m</span>
+            <span style="transition-delay: 100ms">a</span>
+            <span style="transition-delay: 150ms">i</span>
+            <span style="transition-delay: 200ms">l</span>
+          </label>
+          <div
+            *ngIf="email.invalid && formDir.submitted"
+            class="validation-error"
+          >
+            <p *ngIf="email.errors?.['required']">Informe o seu email</p>
+            <p *ngIf="email.errors?.['pattern']">Email inválido</p>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <input
+            type="password"
+            required=""
+            placeholder=" "
+            formControlName="password"
+          />
+          <label>
+            <span style="transition-delay: 0ms">S</span>
+            <span style="transition-delay: 50ms">e</span>
+            <span style="transition-delay: 100ms">n</span>
+            <span style="transition-delay: 150ms">h</span>
+            <span style="transition-delay: 200ms">a</span>
+          </label>
+          <div
+            *ngIf="password.invalid && formDir.submitted"
+            class="validation-error"
+          >
+            <p *ngIf="password.errors?.['required']">Informe a sua senha</p>
+          </div>
+        </div>
+        <app-form-button>LOGAR</app-form-button>
+      </form>
+    </div>
+  </main>
+</section>

@@ -1,0 +1,45 @@
+<app-alert
+  [open]="openAlertProject"
+  [mainText]="
+    'Você está prestes a excluir o seu projeto, essa ação não pode ser desfeita, deseja prosseguir?'
+  "
+  (emitterCloseAlert)="openAlert(null)"
+  (emitterDelete)="deleteProject(id_project)"
+></app-alert>
+
+<section>
+  <h1>Projetos</h1>
+  <app-search-bar
+    [searchedValue]="searchedValue"
+    (onSearch)="search($event)"
+    [placeholderText]="'Procurar projetos'"
+  ></app-search-bar>
+  <h2 *ngIf="noProjects">Nenhum projeto encontrado</h2>
+  <main>
+    <div class="add-project">
+      <button class="icon-btn add-btn" (click)="openPopup(false, null)">
+        <div class="add-icon"></div>
+        <div class="btn-txt">ADICIONAR</div>
+      </button>
+    </div>
+
+    <ul class="projects">
+      <app-banner-project
+        (emitterOpenPopup)="openPopup(true, $event)"
+        *ngFor="let project of searchedProjects"
+        [project]="project"
+        (emitterOpenAlert)="openAlert($event)"
+      ></app-banner-project>
+    </ul>
+  </main>
+</section>
+
+<app-popup-project
+  #appPopupProject
+  [open]="open"
+  (emitterClosePopup)="openPopup(false, null)"
+  (refreshList)="refreshList()"
+  [project]="project"
+  [mediaProject]="mediaProject"
+></app-popup-project>
+

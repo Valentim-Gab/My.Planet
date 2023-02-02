@@ -1,0 +1,25 @@
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  h1 {
+    margin: 4rem 0;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin: 4rem 4rem 0 4rem;
+    list-style: none;
+  }
+
+  app-search-bar {
+    width: 100%;
+  }
+}

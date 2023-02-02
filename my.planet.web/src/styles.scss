@@ -1,0 +1,129 @@
+//Arquivo contendo os estilos globais do site
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+//variaveis globais do estilo
+:root {
+  --roxo: #5f219e;
+  --rosa: #f200ff;
+}
+
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', arial, sans-serif;
+  color: #ffffff;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #000000;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 0.4rem;
+
+    &:hover {
+      background-color: #999999;
+    }
+  }
+}
+
+body {
+  background: url(assets/img/1238307.jpg);
+  background-size: cover;
+  height: 100%;
+}
+
+h1 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  text-shadow: 0px 0px 20px #ffffff;
+  text-align: center;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 32px;
+  text-shadow: 0px 0px 20px #ffffff;
+  text-align: center;
+}
+
+//Alterar a imagem de fundo quando a tela for menor
+@media(max-height: 975px) and (max-width: 635px) {
+  body {
+      background: url(assets/img/1.jpg);
+      background-size: cover;
+  }
+}
+@media (max-width: 880px) {
+  h2 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 440px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
+//Estilizar os inputs do site
+.form-control {
+  position: relative;
+  width: 100%;
+
+  input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px #fff solid;
+    display: block;
+    padding: 15px 0;
+    font-size: 16px;
+    color: #fff;
+
+    &:focus, &:valid {
+      outline: 0;
+      border-bottom-color: lightblue;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    pointer-events: none;
+
+    span {
+      display: inline-block;
+      font-size: 16px;
+      min-width: 5px;
+      color: #fff;
+      transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+  }
+}
+
+.form-control input:focus+label span,
+.form-control input:is(:valid :not(:placeholder-shown))+label span,
+.form-control input:not(:placeholder-shown)+label span {
+  color: lightblue;
+  transform: translateY(-30px);
+}
+
+.validation-error {
+  position: relative;
+  width: 100%;
+   p {
+     position: absolute;
+     color: #ff0000;
+     width: 100%;
+   }
+ }

@@ -1,0 +1,9 @@
+<div class="search">
+  <img src="/assets/img/search.png" alt="" />
+  <input
+    type="search"
+    placeholder="{{ placeholderText }}"
+    [(ngModel)]="searchedValue"
+    (input)="search()"
+  />
+</div>

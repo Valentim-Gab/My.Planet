@@ -1,0 +1,28 @@
+<div class="message {{ messagesService.show }}">
+  <app-loader-planet
+    *ngIf="messagesService.sucess; else noSucess"
+    [show]="messagesService.show"
+  ></app-loader-planet>
+  <ng-template #noSucess>
+    <div class="warning">
+      <div class="triangles">
+        <div class="tri invert"></div>
+        <div class="tri invert"></div>
+        <div class="tri"></div>
+        <div class="tri invert"></div>
+        <div class="tri invert"></div>
+        <div class="tri"></div>
+        <div class="tri invert"></div>
+        <div class="tri"></div>
+        <div class="tri invert"></div>
+      </div>
+      <img src="/assets/img/warning3.png" />
+    </div>
+  </ng-template>
+  <h2>{{ messagesService.message }}</h2>
+  <span
+    class="close-message {{ messagesService.show }}"
+    (click)="messagesService.clear()"
+    >&times;</span
+  >
+</div>

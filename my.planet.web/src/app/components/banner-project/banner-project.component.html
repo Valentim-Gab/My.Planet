@@ -1,0 +1,27 @@
+<li>
+  <div class="info-projects">
+    <img
+      class="main-img"
+      src="{{ projectImg }}"
+      alt="Imagem principal do projeto"
+    />
+    <div class="titles">
+      <p>{{ project.projectName }}</p>
+      <a href="{{ project.link }}" target="_blank">
+        {{ project.link }}
+      </a>
+    </div>
+  </div>
+  <div class="btn-projects">
+    <img
+      src="/assets/img/edit 2_.png"
+      alt="Botão para editar o projeto"
+      (click)="openPopup(project.idProject!)"
+    />
+    <img
+      src="/assets/img/trash 2_.png"
+      alt="Botão para excluir o projeto"
+      (click)="openAlert(project.idProject!)"
+    />
+  </div>
+</li>

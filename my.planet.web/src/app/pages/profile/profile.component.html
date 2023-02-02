@@ -1,0 +1,104 @@
+<section>
+  <div class="profile">
+    <main>
+      <img
+        *ngIf="userImg; else defaultProfileImg"
+        src="{{ userImg }}"
+        alt="imagem de perfil do usuario {{ user?.username }}"
+      />
+      <ng-template #defaultProfileImg>
+        <img
+          src="/assets/img/default_profile.png"
+          alt="imagem de perfil do usuario {{ user?.username }}"
+        />
+      </ng-template>
+      <div>
+        <div class="user">
+          <p>{{ user?.username }}</p>
+
+          <div>
+            <img
+              *ngIf="logged"
+              src="/assets/img/edit 2_.png"
+              alt="Botão para editar os detalhes do perfil do usuário"
+              (click)="openClosePopup()"
+            />
+          </div>
+        </div>
+
+        <div class="description">
+          <p>
+            {{ user?.description }}
+          </p>
+        </div>
+      </div>
+    </main>
+    <h2>Projetos</h2>
+    <app-search-bar
+      [searchedValue]="searchedValue"
+      (onSearch)="search($event)"
+      [placeholderText]="'Procurar projetos'"
+    ></app-search-bar>
+    <app-perfil-project
+      *ngFor="let project of searchedProjects"
+      [project]="project"
+    ></app-perfil-project>
+    <h3 *ngIf="noProjects">Nenhum projeto encontrado</h3>
+  </div>
+  <div class="popup-registration {{ open }}" *ngIf="user">
+    <span class="close-popup" (click)="openClosePopup()">&times;</span>
+    <h1>Alterar dados do perfil</h1>
+
+    <form
+      (ngSubmit)="onSubmit(perfilPopupImg)"
+      class="form-popup"
+      [formGroup]="popupForm"
+      #formDir="ngForm"
+      enctype="multipart/form-data"
+    >
+      <div>
+        <div class="main-image-popup">
+          <input
+            type="file"
+            #imagePopupProfile
+            class="file-upload"
+            accept="image/*"
+            (change)="fileChange($event, perfilPopupImg)"
+            formControlName="imgPopupProfile"
+          />
+          <div>
+            <div>
+              <div>
+                <img
+                  src="{{ imgUpload }}"
+                  alt="Selecione uma imagem de perfil"
+                  #perfilPopupImg
+                  (click)="photoClick(imagePopupProfile)"
+                />
+                <input type="hidden" />
+              </div>
+            </div>
+          </div>
+          <button
+            class="remove-img"
+            type="button"
+            (click)="removeImg(perfilPopupImg)"
+          >
+            REMOVER
+          </button>
+        </div>
+      </div>
+      <div class="div-description">
+        <fieldset>
+          <legend>Descrição</legend>
+          <textarea
+            maxlength="100"
+            class="popup-description"
+            formControlName="popupDescription"
+          ></textarea>
+        </fieldset>
+      </div>
+      <app-form-button>Confirmar</app-form-button>
+    </form>
+  </div>
+</section>

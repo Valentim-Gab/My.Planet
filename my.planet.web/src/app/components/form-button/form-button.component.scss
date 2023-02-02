@@ -1,0 +1,122 @@
+button.btn {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 30px;
+  transition: 0.5s;
+  position: relative;
+  font-size: 17px;
+  background: transparent;
+  border: 1px solid #ffffff50;
+  color: #fff;
+  width: 100%;
+  border-radius: 10px;
+  height: 50px;
+
+  &:hover {
+    letter-spacing: 0.25em;
+    background: transparent;
+    color: #ffffff;
+    box-shadow: 0 0 45px #ffffff25;
+    border: 1px solid #ffffff;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: transparent;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  i {
+    position: absolute;
+    inset: 0;
+    display: block;
+
+    &::before {
+      content: "";
+      position: absolute;
+      border: 2px solid #ffffff;
+      width: 7px;
+      height: 4px;
+      top: -3.5px;
+      left: 80%;
+      background: #5f219e;
+      transform: translateX(-50%);
+      transition: 0.5s;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      border: 2px solid #ffffff;
+      width: 7px;
+      height: 4px;
+      bottom: -3.5px;
+      left: 20%;
+      background: #5f219e;
+      transform: translateX(-50%);
+      transition: 0.5s;
+    }
+  }
+
+  &:hover {
+    i {
+      &::before {
+        width: 20px;
+        left: 20%;
+      }
+
+      &::after {
+        width: 20px;
+        left: 80%;
+      }
+    }
+  }
+
+  &.delete {
+    background: #ff000050;
+    margin-top: 20px;
+    min-width: 225px;
+    width: 60%;
+    max-width: 280px;
+
+    &:hover {
+      background: #ff000090;
+      box-shadow: 0 0 45px #ff000090;
+    }
+  }
+
+  &.btn-alert {
+    background: #ecd635;
+    border: none;
+    color: #000000;
+
+    span,
+    ng-content {
+      color: #000000;
+      font-weight: 600;
+    }
+
+    &:hover {
+      box-shadow: 0 0 45px #ecd63550;
+    }
+  }
+
+  &.popup,
+  &.btn-alert {
+    i {
+      &::before {
+        background: #000000;
+      }
+
+      &::after {
+        background: #000000;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<section>
+  <h1>Usuários</h1>
+  <app-search-bar
+    [searchedValue]="searchedValue"
+    (onSearch)="search($event)"
+    [placeholderText]="'Procurar usuários'"
+  ></app-search-bar>
+  <ul *ngIf="searchedUsers">
+    <li *ngFor="let user of this.searchedUsers">
+      <app-user-card [user]="user"></app-user-card>
+    </li>
+  </ul>
+  <h2 *ngIf="noUsers">Nenhum usuário encontrado</h2>
+</section>

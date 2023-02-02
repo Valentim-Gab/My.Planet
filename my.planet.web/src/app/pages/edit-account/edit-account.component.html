@@ -1,0 +1,6 @@
+<app-form-main
+  *ngIf="user"
+  [action]="action"
+  [user]="user"
+  (onEmitterUser)="onSubmit($event)"
+></app-form-main>

@@ -1,0 +1,82 @@
+<nav>
+  <button>☰</button>
+  <ul>
+    <a
+      *ngIf="!userLogged"
+      class="nav-item"
+      routerLinkActive="active-page"
+      routerLink="/home"
+      >Início</a
+    >
+    <a
+      *ngIf="!userLogged"
+      class="nav-item"
+      routerLinkActive="active-page"
+      routerLink="/cadastro"
+      >Cadastre-se</a
+    >
+    <a
+      *ngIf="!userLogged"
+      class="nav-item"
+      routerLinkActive="active-page"
+      routerLink="/login"
+      >Login</a
+    >
+
+    <a
+      *ngIf="userLogged"
+      class="nav-item"
+      routerLinkActive="active-page"
+      routerLink="/perfil/{{ userLogged.id }}"
+      [ngStyle]="{ padding: '0.4rem 0.7rem' }"
+    >
+      <img src="{{ userImg }}" alt="Imagem de perfil da sua conta" />
+      Perfil</a
+    >
+    <a
+      *ngIf="userLogged"
+      class="nav-item"
+      routerLinkActive="active-page"
+      routerLink="/projetos/{{ userLogged.id }}"
+      >Projetos</a
+    >
+    <a
+      *ngIf="userLogged"
+      class="nav-item"
+      routerLinkActive="active-page"
+      routerLink="/conta/{{ userLogged.id }}"
+      >Conta</a
+    >
+    <a
+      *ngIf="userLogged"
+      class="nav-item"
+      [ngStyle]="{ cursor: 'pointer' }"
+      (click)="logout()"
+      >Sair</a
+    >
+    <input
+      class="nav-item"
+      placeholder="Procurar usuários"
+      type="search"
+      [(ngModel)]="searchedValue"
+      (input)="search()"
+    />
+  </ul>
+  <section
+    [ngStyle]="{ height: '{{heightSearch}}rem' }"
+    *ngIf="searchedValue"
+    class="search-box"
+  >
+    <ul>
+      <app-search-user-header
+        *ngFor="let user of searchedUsers | slice : 0 : 10"
+        [user]="user"
+      ></app-search-user-header>
+    </ul>
+    <div *ngIf="searchedUsers.length > 0">
+      <a routerLink="/usuarios" [queryParams]="{ pesquisa: searchedValue }"
+        >Ver mais...</a
+      >
+    </div>
+  </section>
+</nav>

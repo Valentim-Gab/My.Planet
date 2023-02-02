@@ -1,0 +1,13 @@
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 8rem 2rem 0 2rem;
+  gap: 4rem;
+
+  app-form-button {
+    width: 100%;
+    max-width: 15rem;
+  }
+}

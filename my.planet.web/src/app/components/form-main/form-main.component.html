@@ -1,0 +1,129 @@
+<app-alert
+  [open]="open"
+  [mainText]="
+    'Você está prestes a excluir sua conta, essa ação irá deletar todos os projetos salvos até o momento, deseja prosseguir?'
+  "
+  (emitterCloseAlert)="openAlert()"
+  (emitterDelete)="deleteUser()"
+></app-alert>
+
+<div class="main-registration">
+  <div class="box-registration"></div>
+  <form
+    class="registration"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="formMain"
+    #formDir="ngForm"
+  >
+    <h1>{{ title }}</h1>
+    <div class="form-control">
+      <input
+        type="text"
+        required=""
+        placeholder=" "
+        formControlName="username"
+        maxlength="40"
+      />
+      <label>
+        <span style="transition-delay: 0ms">N</span>
+        <span style="transition-delay: 50ms">o</span>
+        <span style="transition-delay: 100ms">m</span>
+        <span style="transition-delay: 150ms">e</span>
+      </label>
+      <div
+        *ngIf="username.invalid && formDir.submitted"
+        class="validation-error"
+      >
+        <p *ngIf="username.errors?.['required']">Informe o seu nome</p>
+      </div>
+    </div>
+    <div class="form-control">
+      <input
+        type="email"
+        required=""
+        placeholder=" "
+        formControlName="email"
+        maxlength="200"
+      />
+      <label>
+        <span style="transition-delay: 0ms">E</span>
+        <span style="transition-delay: 50ms">m</span>
+        <span style="transition-delay: 100ms">a</span>
+        <span style="transition-delay: 150ms">i</span>
+        <span style="transition-delay: 200ms">l</span>
+      </label>
+      <div *ngIf="email.invalid && formDir.submitted" class="validation-error">
+        <p *ngIf="email.errors?.['required']">Informe o seu email</p>
+        <p *ngIf="email.errors?.['pattern']">Email inválido</p>
+      </div>
+    </div>
+    <div class="form-control">
+      <input
+        type="password"
+        required=""
+        placeholder=" "
+        formControlName="password"
+        maxlength="100"
+      />
+      <label>
+        <span style="transition-delay: 0ms">S</span>
+        <span style="transition-delay: 50ms">e</span>
+        <span style="transition-delay: 100ms">n</span>
+        <span style="transition-delay: 150ms">h</span>
+        <span style="transition-delay: 200ms">a</span>
+      </label>
+      <div
+        *ngIf="password.invalid && formDir.submitted"
+        class="validation-error"
+      >
+        <p *ngIf="password.errors?.['required']">Informe a sua senha</p>
+      </div>
+    </div>
+    <div class="form-control">
+      <input
+        type="password"
+        required=""
+        placeholder=" "
+        formControlName="password2"
+      />
+      <label>
+        <span style="transition-delay: 0ms">R</span>
+        <span style="transition-delay: 50ms">e</span>
+        <span style="transition-delay: 100ms">d</span>
+        <span style="transition-delay: 150ms">i</span>
+        <span style="transition-delay: 200ms">g</span>
+        <span style="transition-delay: 0ms">i</span>
+        <span style="transition-delay: 50ms">t</span>
+        <span style="transition-delay: 100ms">e</span>
+        <span style="transition-delay: 150ms"> </span>
+        <span style="transition-delay: 200ms">a</span>
+        <span style="transition-delay: 200ms"> </span>
+        <span style="transition-delay: 0ms">S</span>
+        <span style="transition-delay: 50ms">e</span>
+        <span style="transition-delay: 100ms">n</span>
+        <span style="transition-delay: 150ms">h</span>
+        <span style="transition-delay: 200ms">a</span>
+      </label>
+      <div
+        *ngIf="password2.invalid && formDir.submitted"
+        class="validation-error"
+      >
+        <p
+          *ngIf="password2.errors?.['required'] || formMain.errors?.['confirmedValidator']"
+        >
+          Informe a sua senha novamente
+        </p>
+      </div>
+      <div
+        *ngIf="formMain.errors?.['confirmedValidator']"
+        class="validation-error"
+      >
+        <p>As senhas não coincidem</p>
+      </div>
+    </div>
+    <app-form-button>Confirmar</app-form-button>
+  </form>
+  <app-form-button [class]="'delete'" [ngClass]="action" (click)="openAlert()"
+    >Apagar
+  </app-form-button>
+</div>

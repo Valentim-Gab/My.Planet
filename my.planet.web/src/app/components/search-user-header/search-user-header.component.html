@@ -1,0 +1,19 @@
+<li>
+  <a href="user/{{ user.id }}">
+    <img
+      *ngIf="user.img; else defaultImage"
+      src="{{ userImg }}"
+      alt="Imagem do perfil do usuário {{ user.username }}"
+    />
+    <ng-template #defaultImage>
+      <img
+        src="/assets/img/default_profile.png"
+        alt="Imagem do perfil do usuário {{ user.username }}"
+      />
+    </ng-template>
+    <div>
+      <h4>{{ user.username }}</h4>
+      <p>{{ user.description }}</p>
+    </div>
+  </a>
+</li>

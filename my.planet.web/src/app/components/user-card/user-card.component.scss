@@ -1,0 +1,51 @@
+.cards {
+  perspective: 500px;
+
+  .card {
+    width: 225px;
+    height: 275px;
+    background: conic-gradient(from 180deg at 50% 22.8%, #16161D 0deg, #5F219E 179.37deg, #16161D 360deg);
+    border: 2px solid #555555;
+    border-radius: 0.25em;
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    gap: 1rem;
+    cursor: pointer;
+    color: #fff;
+
+    &:hover {
+      transform: translateZ(10px) rotateX(20deg) rotateY(20deg);
+    }
+
+    .img {
+      .circle {
+        width: 100px;
+        height: 100px;
+        background: transparent;
+        border-radius: 4em;
+      }
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+
+      h4 {
+        max-width: 16ch;
+        height: 4rem;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-align: center;
+      }
+    }
+  }
+}

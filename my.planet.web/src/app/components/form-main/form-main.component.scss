@@ -1,0 +1,57 @@
+.main-registration {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  padding: 120px 0px 300px 0px;
+
+  .box-registration {
+    position: absolute;
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    box-shadow: 0px 0px 117px #000000;
+    transform: rotate(-20.5deg);
+    width: 700px;
+    height: 700px;
+  }
+
+  .registration {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 42px;
+    width: 300px;
+    z-index: 1;
+
+    input {
+      color: #ffffff;
+      border: none;
+      font-weight: 500;
+      font-size: 16px;
+      width: 100%;
+      border-bottom: 1px solid #fff;
+      background-color: transparent;
+    }
+
+    app-form-button {
+      width: 100%;
+    }
+  }
+
+  .new-register {
+    display: none;
+  }
+
+  @media (max-width: 350px) {
+    .registration {
+      width: 250px;
+    }
+  }
+}
+
+app-alert {
+  display: flex;
+  justify-content: center;
+}

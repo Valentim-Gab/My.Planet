@@ -1,0 +1,14 @@
+<section class="alert {{ open }}">
+  <span class="close-popup" (click)="closeAlert()">&times;</span>
+  <img src="/assets/img/warning1.png" alt="alerta de Exclusão" />
+  <h1>Confirma a exclusão?</h1>
+  <p>
+    {{ mainText }}
+  </p>
+  <div class="buttons">
+    <app-form-button (click)="closeAlert()">Cancelar </app-form-button>
+    <app-form-button (click)="delete()" [class]="'btn-alert'">
+      Confirmar
+    </app-form-button>
+  </div>
+</section>

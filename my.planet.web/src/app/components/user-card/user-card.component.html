@@ -1,0 +1,15 @@
+<div routerLink="/user/{{ user.id }}" class="cards">
+  <figure class="card">
+    <div class="img">
+      <img
+        class="circle"
+        src="{{ userImg }}"
+        alt="Imagem de perfil do usuário {{ user.username }}"
+      />
+    </div>
+    <div class="info" *ngIf="projects">
+      <h4>{{ user.username }}</h4>
+      <p>Projetos: {{ projects.length }}</p>
+    </div>
+  </figure>
+</div>
