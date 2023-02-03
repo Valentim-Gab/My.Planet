@@ -1,6 +1,6 @@
 ## My Planet
 
-Site para armazenar projetos como se fosse um bloco de notas
+Site to store projects as if it were a notepad
 
 ```bash
 
