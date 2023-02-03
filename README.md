@@ -6,7 +6,7 @@ Site to store projects as if it were a notepad
 
  Api Using:
   - Java + Spring Boot
-  - JPA + Postgres
+  - JPA + PostgreSQL
   - Python
  
  Web Using:
