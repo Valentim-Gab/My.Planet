@@ -3,14 +3,16 @@
 Site to store projects as if it were a notepad
 
 ```bash
-
+Using {
  Api Using:
-  - Java + Spring Boot
-  - JPA + PostgreSQL
-  - Python
+  - Java + Spring Boot;
+  - PostgreSQL + JPA;
+  - Python;
  
  Web Using:
-  - Angular
-  - HTML
-  - SCSS
+  - Angular;
+  - HTML;
+  - SCSS;
+  - TypeScript.
+}
 ```
