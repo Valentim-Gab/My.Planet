@@ -4,9 +4,11 @@ Site to store projects as if it were a notepad
 
 ```bash
 Using {
+ Database:
+  - PostgreSQL + JPA;
+  
  Api Using:
   - Java + Spring Boot;
-  - PostgreSQL + JPA;
   - Python;
  
  Web Using:
