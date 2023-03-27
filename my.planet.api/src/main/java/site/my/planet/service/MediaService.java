@@ -7,36 +7,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import site.my.planet.dao.MediaProjectDao;
-import site.my.planet.dao.ProjectDao;
-import site.my.planet.model.MediaProject;
-import site.my.planet.model.MediaProjectRequest;
-import site.my.planet.model.Project;
+import site.my.planet.dao.MediaDao;
+import site.my.planet.dao.PersonalWorkDao;
+import site.my.planet.model.Media;
+import site.my.planet.model.MediaRequest;
+import site.my.planet.model.PersonalWork;
 import site.my.planet.util.ImageUtil;
 
 @Service
 public class MediaService {
 
-    private MediaProjectDao mediaProjectDao;
-    private ProjectDao projectDao;
+    private MediaDao mediaDao;
+    private PersonalWorkDao personalWorkDao;
     private ImageUtil imageUtil;
 
-    public MediaService(MediaProjectDao mediaProjectDao, ProjectDao projectDao, ImageUtil imageUtil) {
-        this.mediaProjectDao = mediaProjectDao;
-        this.projectDao = projectDao;
+    public MediaService(MediaDao mediaDao, PersonalWorkDao personalWorkDao, ImageUtil imageUtil) {
+        this.mediaDao = mediaDao;
+        this.personalWorkDao = personalWorkDao;
         this.imageUtil = imageUtil;
     }
 
-    public Optional<MediaProject> get(long id) {
-        return this.mediaProjectDao.findById(id);
+    public Optional<Media> get(long id) {
+        return this.mediaDao.findById(id);
     }
 
-    public ArrayList<MediaProject> getAll() {
-        return (ArrayList<MediaProject>) this.mediaProjectDao.findAll();
+    public ArrayList<Media> getAll() {
+        return (ArrayList<Media>) this.mediaDao.findAll();
     }
 
-    public MediaProject getByProject(long id) {
-        return this.mediaProjectDao.findByProject(id);
+    public Media getByPersonalWork(long id) {
+        return this.mediaDao.findByPersonalWork(id);
     }
 
     public ResponseEntity<byte[]> getImg(Optional<String> imgName) {
@@ -46,47 +46,47 @@ public class MediaService {
             return ResponseEntity.badRequest().body(null);
     }
 
-    public void save(MediaProjectRequest mediaProjectRequest,
+    public void save(MediaRequest mediaRequest,
             Optional<MultipartFile> multipartFile) {
-        Project project = new Project();
-        project = this.projectDao.getReferenceById(mediaProjectRequest.getIdProject());
+        PersonalWork personalWork = new PersonalWork();
+        personalWork = this.personalWorkDao.getReferenceById(mediaRequest.getIdPersonalWork());
 
-        MediaProject mediaProject = new MediaProject();
-        mediaProject.setFirstVideo(mediaProjectRequest.getFirstVideo());
-        mediaProject.setSecondVideo(mediaProjectRequest.getSecondVideo());
-        mediaProject.setProject(project);
+        Media media = new Media();
+        media.setFirstVideo(mediaRequest.getFirstVideo());
+        media.setSecondVideo(mediaRequest.getSecondVideo());
+        media.setPersonalWork(personalWork);
 
-        mediaProject = this.mediaProjectDao.save(mediaProject);
-        mediaProject = this.mediaProjectDao.getReferenceById(mediaProject.getIdMedia());
+        media = this.mediaDao.save(media);
+        media = this.mediaDao.getReferenceById(media.getIdMedia());
 
         if (multipartFile.isPresent())
-            mediaProject.setImg(this.imageUtil.save(
-                    multipartFile.get(), mediaProject.getIdMedia(), "media"));
+            media.setImg(this.imageUtil.save(
+                    multipartFile.get(), media.getIdMedia(), "media"));
         else
-            mediaProject.setImg(null);
+            media.setImg(null);
 
-        this.projectDao.flush();
+        this.personalWorkDao.flush();
     }
 
     public void delete(long id) {
-        this.mediaProjectDao.deleteById(id);
+        this.mediaDao.deleteById(id);
     }
 
-    public void update(long id, MediaProjectRequest mediaProjectRequest,
+    public void update(long id, MediaRequest mediaRequest,
             Optional<MultipartFile> multipartFile, Optional<String> deleteImage) {
-        MediaProject mediaProject = new MediaProject();
-        mediaProject = this.mediaProjectDao.getReferenceById(id);
-        mediaProject.setFirstVideo(mediaProjectRequest.getFirstVideo());
-        mediaProject.setSecondVideo(mediaProjectRequest.getSecondVideo());
+        Media media = new Media();
+        media = this.mediaDao.getReferenceById(id);
+        media.setFirstVideo(mediaRequest.getFirstVideo());
+        media.setSecondVideo(mediaRequest.getSecondVideo());
 
         if (multipartFile.isPresent())
-            mediaProject.setImg(this.imageUtil.save(
+            media.setImg(this.imageUtil.save(
                     multipartFile.get(), id, "media"));
         else if (deleteImage.isPresent())
-            mediaProject.setImg(null);
+            media.setImg(null);
         else
-            mediaProject.setImg(mediaProject.getImg());
+            media.setImg(media.getImg());
 
-        this.mediaProjectDao.flush();
+        this.mediaDao.flush();
     }
 }

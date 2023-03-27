@@ -97,6 +97,7 @@ export class UserService {
     return this.http.delete<User>(`${this.url}/${id}`).pipe(
       tap(() => {
         this.messagesService.add(`Conta deletada!`)
+        localStorage.removeItem('token')
       }),
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')

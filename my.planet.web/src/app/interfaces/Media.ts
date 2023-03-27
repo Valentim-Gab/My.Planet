@@ -1,7 +1,7 @@
-export interface MediaProject {
+export interface Media {
   idMedia?: number;
   img?: string;
   firstVideo: string;
   secondVideo: string;
-  idProject?: number;
+  idPersonalWork?: number;
 }

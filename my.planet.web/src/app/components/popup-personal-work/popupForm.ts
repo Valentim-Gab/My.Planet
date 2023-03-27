@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MediaProject } from 'src/app/interfaces/MediaProject'
-import { Project } from 'src/app/interfaces/Project'
+import { Media } from 'src/app/interfaces/Media'
+import { PersonalWork } from 'src/app/interfaces/PersonalWork'
 import { YoutubeUtil } from 'src/app/utils/youtube.util'
 
 @Injectable({
@@ -10,25 +10,25 @@ import { YoutubeUtil } from 'src/app/utils/youtube.util'
 export class PopupForm {
   constructor(private youtubeUtil: YoutubeUtil) {}
 
-  initFormPopup(project: Project, mediaProject: MediaProject) {
+  initFormPopup(personalWork: PersonalWork, media: Media) {
     return new FormGroup({
       imgPopupProfile: new FormControl(''),
-      popupName: new FormControl(project ? project.projectName : '', [
+      popupName: new FormControl(personalWork ? personalWork.personalWorkName : '', [
         Validators.required,
       ]),
-      popupLink: new FormControl(project ? project.link : '', [
+      popupLink: new FormControl(personalWork ? personalWork.link : '', [
         Validators.required,
       ]),
-      popupDescription: new FormControl(project ? project.description : '', [
+      popupDescription: new FormControl(personalWork ? personalWork.description : '', [
         Validators.required,
       ]),
       imgPopupPacket: new FormControl(''),
       packetLink1: new FormControl(
-        mediaProject ? `https://youtu.be/${mediaProject.firstVideo}` : '',
+        media ? `https://youtu.be/${media.firstVideo}` : '',
         [Validators.required, Validators.pattern(this.youtubeUtil.urlValidator)]
       ),
       packetLink2: new FormControl(
-        mediaProject ? `https://youtu.be/${mediaProject.secondVideo}` : '',
+        media ? `https://youtu.be/${media.secondVideo}` : '',
         [Validators.required, Validators.pattern(this.youtubeUtil.urlValidator)]
       ),
     })

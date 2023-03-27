@@ -1,10 +1,10 @@
 <app-alert
-  [open]="openAlertProject"
+  [open]="openAlertPersonalWork"
   [mainText]="
     'Você está prestes a excluir o seu projeto, essa ação não pode ser desfeita, deseja prosseguir?'
   "
   (emitterCloseAlert)="openAlert(null)"
-  (emitterDelete)="deleteProject(id_project)"
+  (emitterDelete)="deletePersonalWork(id_personalWork)"
 ></app-alert>
 
 <section>
@@ -14,7 +14,7 @@
     (onSearch)="search($event)"
     [placeholderText]="'Procurar projetos'"
   ></app-search-bar>
-  <h2 *ngIf="noProjects">Nenhum projeto encontrado</h2>
+  <h2 *ngIf="noPersonalWorks">Nenhum projeto encontrado</h2>
   <main>
     <div class="add-project">
       <button class="icon-btn add-btn" (click)="openPopup(false, null)">
@@ -24,22 +24,22 @@
     </div>
 
     <ul class="projects">
-      <app-banner-project
+      <app-banner-personal-work
         (emitterOpenPopup)="openPopup(true, $event)"
-        *ngFor="let project of searchedProjects"
-        [project]="project"
+        *ngFor="let personalWork of searchedPersonalWorks"
+        [personalWork]="personalWork"
         (emitterOpenAlert)="openAlert($event)"
-      ></app-banner-project>
+      ></app-banner-personal-work>
     </ul>
   </main>
 </section>
 
-<app-popup-project
-  #appPopupProject
+<app-popup-personal-work
+  #appPopupPesonalWork
   [open]="open"
   (emitterClosePopup)="openPopup(false, null)"
   (refreshList)="refreshList()"
-  [project]="project"
-  [mediaProject]="mediaProject"
-></app-popup-project>
+  [personalWork]="personalWork"
+  [media]="media"
+></app-popup-personal-work>
 

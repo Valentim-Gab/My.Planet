@@ -2,27 +2,27 @@ import { HttpResponse } from '@angular/common/http'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
-import { MediaProject } from 'src/app/interfaces/MediaProject'
+import { Media } from 'src/app/interfaces/Media'
 import { Popup } from 'src/app/interfaces/Popup'
-import { Project } from 'src/app/interfaces/Project'
-import { MediaProjectService } from 'src/app/services/mediaProject.service'
-import { ProjectService } from 'src/app/services/project.service'
+import { PersonalWork } from 'src/app/interfaces/PersonalWork'
+import { MediaService } from 'src/app/services/media.service'
+import { PersonalWorkService } from 'src/app/services/personal-works.service'
 import { ImageUtil } from 'src/app/utils/image.util'
 import { PopupForm } from './popupForm'
 
 @Component({
-  selector: 'app-popup-project',
-  templateUrl: './popup-project.component.html',
-  styleUrls: ['./popup-project.component.scss'],
+  selector: 'app-popup-personal-work',
+  templateUrl: './popup-personal-work.component.html',
+  styleUrls: ['./popup-personal-work.component.scss'],
 })
-export class PopupProjectComponent implements OnInit {
+export class PopupPersonalWorkComponent implements OnInit {
   @Output() emitterClosePopup: EventEmitter<Event> = new EventEmitter()
   @Output() refreshList: EventEmitter<Event> = new EventEmitter()
   @Input() open!: string
-  @Input() project: Project | null = null
-  @Input() mediaProject: MediaProject | null = null
-  formDataProject: FormData = new FormData()
-  formDataMediaProject: FormData = new FormData()
+  @Input() personalWork: PersonalWork | null = null
+  @Input() media: Media | null = null
+  formDataPersonalWork: FormData = new FormData()
+  formDataMedia: FormData = new FormData()
   popupForm!: FormGroup
   refreshValidator = false
   imgUpload: string = `/assets/img/upload-image.png`
@@ -31,8 +31,8 @@ export class PopupProjectComponent implements OnInit {
 
   constructor(
     private popupFormInit: PopupForm,
-    private projectService: ProjectService,
-    private mediaProjectService: MediaProjectService,
+    private personalWorkService: PersonalWorkService,
+    private mediaService: MediaService,
     private route: ActivatedRoute,
     private imageUtil: ImageUtil
   ) {}
@@ -86,25 +86,25 @@ export class PopupProjectComponent implements OnInit {
   }
 
   updateTitle(event: Event, file_file_name: HTMLInputElement) {
-    this.imageUtil.updateTitle(event, file_file_name, this.formDataMediaProject)
+    this.imageUtil.updateTitle(event, file_file_name, this.formDataMedia)
   }
 
   fileChange(event: Event | null, ImagePopupImg: HTMLImageElement) {
     const file = this.imageUtil.fileChange(event!, ImagePopupImg)
-    this.formDataProject.set('img', file)
+    this.formDataPersonalWork.set('img', file)
   }
 
   removeImg(ImagePopupImg: HTMLImageElement) {
     ImagePopupImg!.src = this.imageUtil.removeImg(
       this.imgUpload,
       '/assets/img/upload-image.png',
-      this.formDataProject
+      this.formDataPersonalWork
     )
   }
 
   removeMediaImg(file_file_name: HTMLInputElement) {
     file_file_name.value = ''
-    this.imageUtil.removeImg(null, '', this.formDataMediaProject)
+    this.imageUtil.removeImg(null, '', this.formDataMedia)
     this.mediaImgUpload = 'Escolha uma imagem'
   }
 
@@ -112,96 +112,96 @@ export class PopupProjectComponent implements OnInit {
     this.refreshValidator = false
     if (this.popupForm.invalid) return
     const popup: Popup = this.popupForm.value
-    this.formDataProject = this.projectService.buildRequisition(
+    this.formDataPersonalWork = this.personalWorkService.buildRequisition(
       popup,
       this.id,
-      this.formDataProject
+      this.formDataPersonalWork
     )
 
-    const project: Project = {
-      idProject: this.project?.idProject,
-      projectName: this.project?.projectName!,
-      description: this.project?.description!,
-      link: this.project?.link!,
-      img: this.project?.img,
+    const personalWork: PersonalWork = {
+      idPersonalWork: this.personalWork?.idPersonalWork,
+      personalWorkName: this.personalWork?.personalWorkName!,
+      description: this.personalWork?.description!,
+      link: this.personalWork?.link!,
+      img: this.personalWork?.img,
     }
 
-    const mediaProject: MediaProject = {
-      idMedia: this.mediaProject?.idMedia,
-      firstVideo: this.mediaProject?.firstVideo!,
-      secondVideo: this.mediaProject?.secondVideo!,
-      img: this.mediaProject?.img,
-      idProject: 2,
+    const media: Media = {
+      idMedia: this.media?.idMedia,
+      firstVideo: this.media?.firstVideo!,
+      secondVideo: this.media?.secondVideo!,
+      img: this.media?.img,
+      idPersonalWork: 2,
     }
 
-    if (!this.project)
-      this.projectService
-        .createProject(this.formDataProject)
+    if (!this.personalWork)
+      this.personalWorkService
+        .createPersonalWork(this.formDataPersonalWork)
         .subscribe((item) => {
-          this.addMediaProject(item as Project, popup)
+          this.addMedia(item as PersonalWork, popup)
         })
     else
-      this.projectService
-        .updateProject(project.idProject!, this.formDataProject)
+      this.personalWorkService
+        .updatePersonalWork(personalWork.idPersonalWork!, this.formDataPersonalWork)
         .subscribe(() => {
-          this.updateMediaProject(popup, mediaProject, project)
+          this.updateMedia(popup, media, personalWork)
         })
 
     this.closePopup(ImagePopupImg, file_file_name)
   }
 
-  async addMediaProject(project: Project, popup: Popup) {
-    this.formDataMediaProject = this.mediaProjectService.buildRequisition(
+  async addMedia(personalWork: PersonalWork, popup: Popup) {
+    this.formDataMedia = this.mediaService.buildRequisition(
       popup,
-      project.idProject!,
-      this.formDataMediaProject
+      personalWork.idPersonalWork!,
+      this.formDataMedia
     )
 
-    this.mediaProjectService
-      .createMediaProject(this.formDataMediaProject)
+    this.mediaService
+      .createMedia(this.formDataMedia)
       .subscribe()
-    this.formDataMediaProject.delete('img')
-    this.formDataProject.delete('img')
+    this.formDataMedia.delete('img')
+    this.formDataPersonalWork.delete('img')
     this.refreshList.emit()
   }
 
-  updateMediaProject(
+  updateMedia(
     popup: Popup,
-    mediaProject: MediaProject,
-    project: Project
+    media: Media,
+    personalWork: PersonalWork
   ) {
-    this.mediaProjectService.buildRequisition(
+    this.mediaService.buildRequisition(
       popup,
-      project.idProject!,
-      this.formDataMediaProject
+      personalWork.idPersonalWork!,
+      this.formDataMedia
     )
 
-    this.mediaProjectService
-      .updateMediaProject(
-        mediaProject.idMedia!,
-        this.formDataMediaProject,
+    this.mediaService
+      .updateMedia(
+        media.idMedia!,
+        this.formDataMedia,
         this.id
       )
       .subscribe()
   }
 
-  refreshFormPopup(mediaProject: MediaProject | null) {
-    if (mediaProject) this.mediaProject = mediaProject
+  refreshFormPopup(media: Media | null) {
+    if (media) this.media = media
 
-    if (this.project && this.project.img)
-      this.projectService.getImg(this.project.img).subscribe((item) => {
+    if (this.personalWork && this.personalWork.img)
+      this.personalWorkService.getImg(this.personalWork.img).subscribe((item) => {
         this.imgUpload = item
           ? ((item as HttpResponse<Blob>).url as string)
           : `/assets/img/upload-image.png`
       })
     else this.imgUpload = `/assets/img/upload-image.png`
 
-    if (this.mediaProject && this.mediaProject.img)
+    if (this.media && this.media.img)
       this.mediaImgUpload = `Alterar a imagem existente`
 
     this.popupForm = this.popupFormInit.initFormPopup(
-      this.project!,
-      this.mediaProject!
+      this.personalWork!,
+      this.media!
     )
   }
 }

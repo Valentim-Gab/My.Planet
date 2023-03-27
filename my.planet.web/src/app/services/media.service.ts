@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 import { catchError, Observable, of, tap } from 'rxjs'
-import { MediaProject } from '../interfaces/MediaProject'
+import { Media } from '../interfaces/Media'
 import { environment } from 'src/environments/environment'
 import { Popup } from '../interfaces/Popup'
 import { YoutubeUtil } from '../utils/youtube.util'
@@ -11,7 +11,7 @@ import { Router } from '@angular/router'
 @Injectable({
   providedIn: 'root',
 })
-export class MediaProjectService {
+export class MediaService {
   private baseApiUrl = environment.baseApiUrl
   url = `${this.baseApiUrl}/media`
 
@@ -22,8 +22,8 @@ export class MediaProjectService {
     private router: Router
   ) {}
 
-  getMediaProjectByProject(id: number): Observable<MediaProject | boolean> {
-    return this.http.get<MediaProject>(`${this.url}/project/${id}`).pipe(
+  getMediaByPersonalWork(id: number): Observable<Media | boolean> {
+    return this.http.get<Media>(`${this.url}/personal-work/${id}`).pipe(
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
         return of(false)
@@ -44,8 +44,8 @@ export class MediaProjectService {
       )
   }
 
-  createMediaProject(formData: FormData): Observable<MediaProject | boolean> {
-    return this.http.post<MediaProject>(this.url, formData).pipe(
+  createMedia(formData: FormData): Observable<Media | boolean> {
+    return this.http.post<Media>(this.url, formData).pipe(
       tap(() => {
         this.messagesService.add(`Projeto adicionado!`)
       }),
@@ -55,12 +55,12 @@ export class MediaProjectService {
     )
   }
 
-  updateMediaProject(
+  updateMedia(
     id: number,
     formData: FormData,
     idUser: number
-  ): Observable<MediaProject | boolean> {
-    return this.http.put<MediaProject>(`${this.url}/${id}`, formData).pipe(
+  ): Observable<Media | boolean> {
+    return this.http.put<Media>(`${this.url}/${id}`, formData).pipe(
       tap(() => {
         this.messagesService.add(`Projeto atualizado!`)
         let url = this.router.url.includes('u') ? `${idUser}` : `u/${idUser}`
@@ -73,13 +73,13 @@ export class MediaProjectService {
   }
 
   buildRequisition(popup: Popup, id: number, formData: FormData): FormData {
-    const mediaProject: MediaProject = {
+    const media: Media = {
       firstVideo: this.youtubeUtil.getYouTubeId(popup.packetLink1)!,
       secondVideo: this.youtubeUtil.getYouTubeId(popup.packetLink2)!,
       img: undefined,
-      idProject: id,
+      idPersonalWork: id,
     }
-    formData.set('mediaProject', JSON.stringify(mediaProject))
+    formData.set('media', JSON.stringify(media))
 
     return formData
   }

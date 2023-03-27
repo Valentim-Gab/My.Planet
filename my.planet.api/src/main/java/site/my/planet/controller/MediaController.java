@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.SneakyThrows;
 import site.my.planet.service.MediaService;
-import site.my.planet.model.MediaProject;
-import site.my.planet.model.MediaProjectRequest;
+import site.my.planet.model.Media;
+import site.my.planet.model.MediaRequest;
 
 @RestController
 @RequestMapping("/media")
@@ -25,18 +25,18 @@ public class MediaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<MediaProject> get(@PathVariable("id") long id) {
+    public Optional<Media> get(@PathVariable("id") long id) {
         return this.mediaService.get(id);
     }
 
     @GetMapping()
-    public ArrayList<MediaProject> getAll() {
+    public ArrayList<Media> getAll() {
         return this.mediaService.getAll();
     }
 
-    @GetMapping("/project/{id}")
-    public MediaProject getByProjects(@PathVariable("id") long id) {
-        return this.mediaService.getByProject(id);
+    @GetMapping("/personal-work/{id}")
+    public Media getByPersonalWork(@PathVariable("id") long id) {
+        return this.mediaService.getByPersonalWork(id);
     }
 
     @GetMapping("/img/{imgName}")
@@ -46,13 +46,13 @@ public class MediaController {
 
     @SneakyThrows
     @PostMapping()
-    public void save(@RequestParam("mediaProject") String mediaProject,
+    public void save(@RequestParam("media") String media,
             @RequestParam("img") Optional<MultipartFile> multipartFile) {
 
-        MediaProjectRequest mediaProjectRequest = new ObjectMapper().readValue(
-                mediaProject, MediaProjectRequest.class);
+        MediaRequest mediaRequest = new ObjectMapper().readValue(
+                media, MediaRequest.class);
 
-        this.mediaService.save(mediaProjectRequest, multipartFile);
+        this.mediaService.save(mediaRequest, multipartFile);
     }
 
     @DeleteMapping("/{id}")
@@ -63,13 +63,13 @@ public class MediaController {
     @SneakyThrows
     @PutMapping("/{id}")
     public void update(@PathVariable("id") long id,
-            @RequestParam("mediaProject") String mediaProject,
+            @RequestParam("media") String media,
             @RequestParam("img") Optional<MultipartFile> multipartFile,
             @RequestParam("deleteImage") Optional<String> deleteImage) {
 
-        MediaProjectRequest mediaProjectRequest = new ObjectMapper().readValue(
-                mediaProject, MediaProjectRequest.class);
+        MediaRequest mediaRequest = new ObjectMapper().readValue(
+                media, MediaRequest.class);
 
-        this.mediaService.update(id, mediaProjectRequest, multipartFile, deleteImage);
+        this.mediaService.update(id, mediaRequest, multipartFile, deleteImage);
     }
 }

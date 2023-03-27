@@ -2,8 +2,8 @@
   <span class="close-popup" (click)="closePopup(ImagePopupImg, file_file_name)"
     >&times;</span
   >
-  <h1 *ngIf="!project; else projectEdit">Adicionar projeto</h1>
-  <ng-template #projectEdit>
+  <h1 *ngIf="!personalWork; else personalWorkEdit">Adicionar projeto</h1>
+  <ng-template #personalWorkEdit>
     <h1>Editar projeto</h1>
   </ng-template>
   <form

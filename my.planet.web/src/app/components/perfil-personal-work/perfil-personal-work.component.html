@@ -8,28 +8,28 @@
     #iframeVideo
   ></iframe>
 </div>
-<div class="profile-project" *ngIf="mediaProject">
+<div class="profile-project" *ngIf="media">
   <div class="profile-project-first-section">
     <div class="figure">
-      <img src="{{ projectImg }}" alt="Imagem principal do projeto" />
+      <img src="{{ personalWorkImg }}" alt="Imagem principal do projeto" />
     </div>
     <div>
-      <p>{{ project.projectName }}</p>
-      <a href="{{ project.link }}" target="_blank">
-        {{ project.link }}
+      <p>{{ personalWork.personalWorkName }}</p>
+      <a href="{{ personalWork.link }}" target="_blank">
+        {{ personalWork.link }}
       </a>
-      <textarea readonly>{{ project.description }}</textarea>
+      <textarea readonly>{{ personalWork.description }}</textarea>
     </div>
   </div>
   <div class="figure">
     <img src="{{ mediaImg }}" alt="Imagem demonstrando mais sobre o projeto" />
     <app-thumbnail
-      [link]="mediaProject.firstVideo"
-      (click)="openVideo(iframeVideo, mediaProject.firstVideo)"
+      [link]="media.firstVideo"
+      (click)="openVideo(iframeVideo, media.firstVideo)"
     ></app-thumbnail>
     <app-thumbnail
-      [link]="mediaProject.secondVideo"
-      (click)="openVideo(iframeVideo, mediaProject.secondVideo)"
+      [link]="media.secondVideo"
+      (click)="openVideo(iframeVideo, media.secondVideo)"
     ></app-thumbnail>
   </div>
 </div>

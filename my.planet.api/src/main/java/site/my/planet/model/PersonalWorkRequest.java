@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MediaProjectRequest {
-    private long idMedia;
+public class PersonalWorkRequest {
+    private long idPersonalWork;
+    private String personalWorkName;
+    private String description;
     private String img;
-    private String firstVideo;
-    private String secondVideo;
-    private long idProject;
+    private String link;
+    private Long idUser;
 }

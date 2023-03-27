@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 import { catchError, Observable, of, tap } from 'rxjs'
-import { Project } from '../interfaces/Project'
+import { PersonalWork } from '../interfaces/PersonalWork'
 import { environment } from 'src/environments/environment'
 import { Popup } from '../interfaces/Popup'
 import { MessagesService } from './messages.service'
@@ -9,17 +9,17 @@ import { MessagesService } from './messages.service'
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectService {
+export class PersonalWorkService {
   private baseApiUrl = environment.baseApiUrl
-  url = `${this.baseApiUrl}/project`
+  url = `${this.baseApiUrl}/personal-work`
 
   constructor(
     private http: HttpClient,
     private messagesService: MessagesService
   ) {}
 
-  getAll(): Observable<Project[] | boolean> {
-    return this.http.get<Project[]>(`${this.url}`).pipe(
+  getAll(): Observable<PersonalWork[] | boolean> {
+    return this.http.get<PersonalWork[]>(`${this.url}`).pipe(
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
         return of(false)
@@ -27,8 +27,8 @@ export class ProjectService {
     )
   }
 
-  getAllByUser(id: number): Observable<Project[] | boolean> {
-    return this.http.get<Project[]>(`${this.url}/user/${id}`).pipe(
+  getAllByUser(id: number): Observable<PersonalWork[] | boolean> {
+    return this.http.get<PersonalWork[]>(`${this.url}/user/${id}`).pipe(
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
         return of(false)
@@ -36,8 +36,8 @@ export class ProjectService {
     )
   }
 
-  getProject(id: number): Observable<Project | boolean> {
-    return this.http.get<Project>(`${this.url}/${id}`).pipe(
+  getPersonalWork(id: number): Observable<PersonalWork | boolean> {
+    return this.http.get<PersonalWork>(`${this.url}/${id}`).pipe(
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
         return of(false)
@@ -58,8 +58,8 @@ export class ProjectService {
       )
   }
 
-  createProject(formData: FormData): Observable<Project | boolean> {
-    return this.http.post<Project>(`${this.url}`, formData).pipe(
+  createPersonalWork(formData: FormData): Observable<PersonalWork | boolean> {
+    return this.http.post<PersonalWork>(`${this.url}`, formData).pipe(
       tap((response) => {
         return response
       }),
@@ -70,8 +70,8 @@ export class ProjectService {
     )
   }
 
-  updateProject(id: number, formData: FormData): Observable<Project | boolean> {
-    return this.http.put<Project>(`${this.url}/${id}`, formData).pipe(
+  updatePersonalWork(id: number, formData: FormData): Observable<PersonalWork | boolean> {
+    return this.http.put<PersonalWork>(`${this.url}/${id}`, formData).pipe(
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
         return of(false)
@@ -79,8 +79,8 @@ export class ProjectService {
     )
   }
 
-  delete(id: number): Observable<Project | boolean> {
-    return this.http.delete<Project>(`${this.url}/${id}`).pipe(
+  delete(id: number): Observable<PersonalWork | boolean> {
+    return this.http.delete<PersonalWork>(`${this.url}/${id}`).pipe(
       tap(() => {
         this.messagesService.add(`Projeto deletado!`)
       }),
@@ -92,15 +92,15 @@ export class ProjectService {
   }
 
   buildRequisition(popup: Popup, id: number, formData: FormData): FormData {
-    const project: Project = {
-      projectName: popup.popupName,
+    const personalWork: PersonalWork = {
+      personalWorkName: popup.popupName,
       description: popup.popupDescription,
       img: undefined,
       link: popup.popupLink,
       idUser: id,
     }
 
-    formData.set('project', JSON.stringify(project))
+    formData.set('personal-work', JSON.stringify(personalWork))
     return formData
   }
 }

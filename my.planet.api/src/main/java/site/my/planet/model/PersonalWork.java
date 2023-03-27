@@ -17,24 +17,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "media_project")
-public class MediaProject {
+@Table(name = "personal_work")
+public class PersonalWork {
 
     @Id
-    @Column(name = "id_media")
+    @Column(name = "id_personal_work")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idMedia;
+    private long idPersonalWork;
+
+    @Column(name = "personal_work_name")
+    private String personalWorkName;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "img")
     private String img;
 
-    @Column(name = "first_video")
-    private String firstVideo;
-
-    @Column(name = "second_video")
-    private String secondVideo;
+    @Column(name = "link")
+    private String link;
 
     @ManyToOne
-    @JoinColumn(name = "id_project")
-    private Project project;
+    @JoinColumn(name = "id_user")
+    private UserModel user;
 }

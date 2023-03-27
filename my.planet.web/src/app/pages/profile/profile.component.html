@@ -39,11 +39,11 @@
       (onSearch)="search($event)"
       [placeholderText]="'Procurar projetos'"
     ></app-search-bar>
-    <app-perfil-project
-      *ngFor="let project of searchedProjects"
-      [project]="project"
-    ></app-perfil-project>
-    <h3 *ngIf="noProjects">Nenhum projeto encontrado</h3>
+    <app-perfil-personal-work
+      *ngFor="let personalWork of searchedPersonalWorks"
+      [personalWork]="personalWork"
+    ></app-perfil-personal-work>
+    <h3 *ngIf="noPersonalWork">Nenhum projeto encontrado</h3>
   </div>
   <div class="popup-registration {{ open }}" *ngIf="user">
     <span class="close-popup" (click)="openClosePopup()">&times;</span>

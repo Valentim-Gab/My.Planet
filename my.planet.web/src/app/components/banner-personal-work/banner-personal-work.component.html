@@ -2,13 +2,13 @@
   <div class="info-projects">
     <img
       class="main-img"
-      src="{{ projectImg }}"
+      src="{{ personalWorkImg }}"
       alt="Imagem principal do projeto"
     />
     <div class="titles">
-      <p>{{ project.projectName }}</p>
-      <a href="{{ project.link }}" target="_blank">
-        {{ project.link }}
+      <p>{{ personalWork.personalWorkName }}</p>
+      <a href="{{ personalWork.link }}" target="_blank">
+        {{ personalWork.link }}
       </a>
     </div>
   </div>
@@ -16,12 +16,12 @@
     <img
       src="/assets/img/edit 2_.png"
       alt="Botão para editar o projeto"
-      (click)="openPopup(project.idProject!)"
+      (click)="openPopup(personalWork.idPersonalWork!)"
     />
     <img
       src="/assets/img/trash 2_.png"
       alt="Botão para excluir o projeto"
-      (click)="openAlert(project.idProject!)"
+      (click)="openAlert(personalWork.idPersonalWork!)"
     />
   </div>
 </li>
