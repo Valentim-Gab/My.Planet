@@ -98,6 +98,7 @@ export class UserService {
       tap(() => {
         this.messagesService.add(`Conta deletada!`)
         localStorage.removeItem('token')
+        location.href = '/'
       }),
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
