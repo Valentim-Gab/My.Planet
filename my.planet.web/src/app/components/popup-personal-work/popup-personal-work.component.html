@@ -2,9 +2,9 @@
   <span class="close-popup" (click)="closePopup(ImagePopupImg, file_file_name)"
     >&times;</span
   >
-  <h1 *ngIf="!personalWork; else personalWorkEdit">Adicionar projeto</h1>
+  <h1 *ngIf="!personalWork; else personalWorkEdit">Adicionar Trabalho Pessoal</h1>
   <ng-template #personalWorkEdit>
-    <h1>Editar projeto</h1>
+    <h1>Editar Trabalho Pessoal</h1>
   </ng-template>
   <form
     (ngSubmit)="onSubmit(ImagePopupImg, file_file_name)"
@@ -79,7 +79,9 @@
             <span style="transition-delay: 0ms"> </span>
             <span style="transition-delay: 50ms">do</span>
             <span style="transition-delay: 0ms"> </span>
-            <span style="transition-delay: 100ms">Projeto</span>
+            <span style="transition-delay: 100ms">Trabalho</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 150ms">Pessoal</span>
           </label>
           <div
             *ngIf="popupLink.invalid && formDir.submitted && !refreshValidator"
