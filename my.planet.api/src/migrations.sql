@@ -27,6 +27,15 @@ CREATE TABLE media_personal_work (
 	FOREIGN KEY (id_personal_work) REFERENCES personal_work (id_personal_work) on delete cascade
 );
 
+CREATE TABLE commentary (
+	id_commentary SERIAL PRIMARY KEY,
+	txt_commentary TEXT,
+	id_user INT NOT NULL,
+	id_personal_work INT NOT NULL,
+	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade,
+	FOREIGN KEY (id_personal_work) REFERENCES personal_work (id_personal_work) on delete cascade
+);
+
 INSERT INTO users
 (username, email, password, description, permission)
 VALUES
