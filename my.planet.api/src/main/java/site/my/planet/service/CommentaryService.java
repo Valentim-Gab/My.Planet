@@ -37,15 +37,16 @@ public class CommentaryService {
         return this.commentaryDao.findByPersonalWork(id);
     }
 
-    public void save(CommentaryRequest commentaryRequest) {
-        UserModel user = this.userService.get(commentaryRequest.getIdUser());
-        PersonalWork personalWork = this.personalWorkService.get(commentaryRequest.getIdPersonalWork()).get();
+    public void save(Commentary commentary) {
+        // UserModel user = this.userService.get(commentaryRequest.getIdUser());
+        // PersonalWork personalWork =
+        // this.personalWorkService.get(commentaryRequest.getIdPersonalWork()).get();
 
-        Commentary commentary = new Commentary(
-                0,
-                commentaryRequest.getTxtCommentary(),
-                user,
-                personalWork);
+        // Commentary commentary = new Commentary(
+        // 0,
+        // commentaryRequest.getTxtCommentary(),
+        // user,
+        // personalWork);
 
         this.commentaryDao.save(commentary);
     }

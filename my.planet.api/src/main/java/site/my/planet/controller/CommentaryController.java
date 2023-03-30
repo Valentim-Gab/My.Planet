@@ -31,9 +31,14 @@ public class CommentaryController {
         return this.commentaryService.getByPersonalWork(id);
     }
 
+    // @PostMapping()
+    // public void save(@RequestBody CommentaryRequest commentaryRequest) {
+    // this.commentaryService.save(commentaryRequest);
+    // }
+
     @PostMapping()
-    public void save(@RequestBody CommentaryRequest commentaryRequest) {
-        this.commentaryService.save(commentaryRequest);
+    public void save(@RequestBody Commentary commentary) {
+        this.commentaryService.save(commentary);
     }
 
     // @DeleteMapping("/{id}")

@@ -27,6 +27,8 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { TokenInterceptor } from "./security/token-interceptor";
 import { LoaderPlanetComponent } from './components/loader-planet/loader-planet.component';
 import { SearchUserHeaderComponent } from './components/search-user-header/search-user-header.component';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
+import { CommentaryComponent } from './components/comments-section/commentary/commentary.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { SearchUserHeaderComponent } from './components/search-user-header/searc
     SearchBarComponent,
     NotFoundPageComponent,
     LoaderPlanetComponent,
-    SearchUserHeaderComponent
+    SearchUserHeaderComponent,
+    CommentsSectionComponent,
+    CommentaryComponent
   ],
   imports: [
     BrowserModule,

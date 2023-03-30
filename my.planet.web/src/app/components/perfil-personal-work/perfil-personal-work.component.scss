@@ -1,7 +1,7 @@
 div.profile-project {
   background: rgba(0, 0, 0, 0.75);
   width: 694px;
-  height: 330px;
+  // height: 330px;
   border-radius: 10px;
   padding: 15px;
   display: flex;
@@ -73,6 +73,17 @@ div.profile-project {
 
     &:focus-visible {
       outline: none;
+    }
+  }
+
+  div.comments-section {
+    text-align: center;
+
+    span {
+      font-size: 18px;
+      font-weight: 500; 
+      padding: 0.5rem;
+      cursor: pointer;
     }
   }
 

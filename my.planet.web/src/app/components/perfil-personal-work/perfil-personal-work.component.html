@@ -32,4 +32,12 @@
       (click)="openVideo(iframeVideo, media.secondVideo)"
     ></app-thumbnail>
   </div>
+
+  <div class="comments-section">
+    <span>
+      Ver comentários
+    </span>
+    
+    <app-comments-section [idPersonalWork]="personalWork.idPersonalWork!"></app-comments-section>
+  </div>
 </div>
