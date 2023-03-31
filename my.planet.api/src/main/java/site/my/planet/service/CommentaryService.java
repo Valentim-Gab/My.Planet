@@ -51,9 +51,9 @@ public class CommentaryService {
         this.commentaryDao.save(commentary);
     }
 
-    // public void delete(long id) {
-    // this.commentaryDao.deleteById(id);
-    // }
+    public void delete(long id) {
+        this.commentaryDao.deleteById(id);
+    }
 
     // public void update(long id, UserModel user) {
 

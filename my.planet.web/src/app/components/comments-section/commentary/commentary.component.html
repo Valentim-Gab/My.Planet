@@ -1,4 +1,11 @@
 <div class="commentary">
-  <h4>{{ commentary.user!.username }}</h4>
+  <div class="header-commentary">
+    <h4>{{ commentary.user!.username }}</h4>
+    <img
+      src="/assets/img/trash 2_.png"
+      alt="Botão para excluir o comentário"
+      (click)="deleteCommenatary()"
+    />
+  </div>
   <p>{{ commentary.txtCommentary }}</p>
 </div>

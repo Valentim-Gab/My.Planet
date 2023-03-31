@@ -2,11 +2,35 @@ div.commentary {
   background-color: #000;
   color: #fff;
   margin-bottom: 0.5rem;
-  width: 95%;
+  width: 97%;
   padding: 0.5rem;
   border-radius: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  div.header-commentary {
+    display: flex;
+    justify-content: space-between;
+
+    img {
+      width: 1em;
+      cursor: pointer;
+    }
+  }
 
   p {
     font-size: 12px;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: 535px) {
+    h4 {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 10px;
+    }
   }
 }

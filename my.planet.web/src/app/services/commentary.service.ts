@@ -30,10 +30,21 @@ export class CommentaryService {
     )
   }
 
-  createCommentary(formData: Commentary): Observable<Commentary | boolean> {
-    return this.http.post<Commentary>(this.url, formData).pipe(
+  createCommentary(commentary: Commentary): Observable<Commentary | boolean> {
+    return this.http.post<Commentary>(this.url, commentary).pipe(
       tap(() => {
         this.messagesService.add(`Comentário adicionado!`)
+      }),
+      catchError(() => {
+        return of(false)
+      })
+    )
+  }
+
+  delete(idCommentary: number): Observable<Commentary | boolean> {
+    return this.http.delete<Commentary>(`${this.url}/${idCommentary}`).pipe(
+      tap(() => {
+        this.messagesService.add(`Comentário deletado!`)
       }),
       catchError(() => {
         return of(false)

@@ -41,10 +41,10 @@ public class CommentaryController {
         this.commentaryService.save(commentary);
     }
 
-    // @DeleteMapping("/{id}")
-    // public void delete(@PathVariable("id") long id) {
-    // this.commentaryService.delete(id);
-    // }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") long id) {
+        this.commentaryService.delete(id);
+    }
 
     // @PutMapping("/{id}")
     // public ResponseEntity<Object> update(@PathVariable("id") long id,

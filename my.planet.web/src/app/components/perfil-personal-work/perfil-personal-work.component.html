@@ -34,10 +34,10 @@
   </div>
 
   <div class="comments-section">
-    <span>
-      Ver comentários
+    <span (click)="showComments(spanComments, arrowDownComments)">
+      <span #spanComments>Ver comentários</span>
+      <img src="/assets/img/arrow_down.png" alt="Abrir sessão de comentários" #arrowDownComments>
     </span>
-    
-    <app-comments-section [idPersonalWork]="personalWork.idPersonalWork!"></app-comments-section>
+    <app-comments-section [personalWork]="personalWork" [showing]="showCommentsClass"></app-comments-section>
   </div>
 </div>

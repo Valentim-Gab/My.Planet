@@ -1,4 +1,7 @@
 button.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 10px 30px;
@@ -11,6 +14,7 @@ button.btn {
   width: 100%;
   border-radius: 10px;
   height: 50px;
+  cursor: pointer;
 
   &:hover {
     letter-spacing: 0.25em;
@@ -117,6 +121,16 @@ button.btn {
       &::after {
         background: #000000;
       }
+    }
+  }
+
+  &.small {
+    height: 2rem;
+    font-weight: 500;
+    font-size: 10px;
+
+    i::before, i::after {
+      border: 1px solid #fff;
     }
   }
 }
