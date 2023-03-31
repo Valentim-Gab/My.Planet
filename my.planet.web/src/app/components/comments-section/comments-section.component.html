@@ -1,5 +1,5 @@
 <div class="comments-section {{ showing }}">
-  <div class="comments">
+  <div class="comments" #comments>
     <div *ngFor="let commentary of commentarys">
       <app-commentary [commentary]="commentary" (emitterDeleteCommentary)="deleteCommentary($event)"></app-commentary>
     </div>
@@ -7,6 +7,6 @@
   </div>  
   <div class="input">
     <input type="text" placeholder="Digite o seu comentário" [(ngModel)]="txtCommentary" />
-    <app-form-button [class]="'small'" (click)="comment()">COMENTAR</app-form-button>
+    <app-form-button [class]="'small'" (click)="comment(comments)" #appFormButton>COMENTAR</app-form-button>
   </div>
 </div>

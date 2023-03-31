@@ -3,11 +3,14 @@ div.commentary {
   color: #fff;
   margin-bottom: 0.5rem;
   width: 97%;
+  max-width: 97%;
   padding: 0.5rem;
   border-radius: 0.4rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
+  position: relative;
+  transition: 0.4s;
 
   div.header-commentary {
     display: flex;
@@ -22,6 +25,34 @@ div.commentary {
   p {
     font-size: 12px;
     word-wrap: break-word;
+  }
+
+  .delete {
+    background-color: #000;
+    width: 100%;
+    height: 4em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: .4s;
+    z-index: -2;
+    scale: 0.00001;
+    opacity: 0.00001;
+    border-radius: 0.4rem;
+
+    &.show {
+      z-index: 1;
+      scale: 1;
+      opacity: 1;
+    }
+  }
+
+  &.deleteComentaryOptions {
+    height: 4em;
+    padding: 0;
+    overflow: hidden;
   }
 
   @media (max-width: 535px) {
