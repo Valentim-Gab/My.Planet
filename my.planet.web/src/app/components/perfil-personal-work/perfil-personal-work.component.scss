@@ -80,6 +80,8 @@ div.profile-project {
     text-align: center;
 
     > span {
+      cursor: pointer;
+      
       &:hover {
         opacity: 0.5;
       }
@@ -88,7 +90,6 @@ div.profile-project {
         font-size: 18px;
         font-weight: 500; 
         padding: 0.5rem;
-        cursor: pointer;
         user-select: none;
       }
 
