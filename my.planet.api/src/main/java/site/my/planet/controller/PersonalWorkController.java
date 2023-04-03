@@ -71,4 +71,9 @@ public class PersonalWorkController {
 
         this.personalWorkService.update(id, personalWorkRequest, multipartFile, deleteImage);
     }
+
+    @PatchMapping("/public/visibility")
+    public PersonalWork updateVisibility(@RequestBody PersonalWork personalWork) {
+        return this.personalWorkService.updateVisibility(personalWork);
+    }
 }

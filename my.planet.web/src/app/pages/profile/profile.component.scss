@@ -68,6 +68,16 @@ section {
       }
     }
 
+    ul.listPersonalWork {
+      list-style-type: none !important;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        margin-bottom: 2rem;
+      }
+    }
+
     @media (max-width: 734px) {
       width: 531px;
 

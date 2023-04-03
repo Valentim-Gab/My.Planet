@@ -14,6 +14,7 @@ CREATE TABLE personal_work (
 	description VARCHAR(100) NOT NULL,
 	img VARCHAR(100) default '',
 	link VARCHAR(250) NOT NULL,
+	public BOOLEAN DEFAULT true,
 	id_user INT NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade
 );

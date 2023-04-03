@@ -6,6 +6,7 @@ export interface PersonalWork {
   description: string
   img?: string
   link: string
+  publicWork?: boolean
   idUser?: number
   user?: User
 }

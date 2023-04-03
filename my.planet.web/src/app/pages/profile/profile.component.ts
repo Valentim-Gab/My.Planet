@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   searchedPersonalWorks!: PersonalWork[]
   logged: boolean = false
   noPersonalWork: boolean = false
+  numberWorks: number = 0
 
   constructor(
     private imageUtil: ImageUtil,
@@ -46,6 +47,10 @@ export class ProfileComponent implements OnInit {
       this.personalWorks = item as PersonalWork[]
       this.searchedPersonalWorks = item as PersonalWork[]
       this.noPersonalWork = this.searchedPersonalWorks.length > 0 ? false : true
+
+      this.noPersonalWork = !this.personalWorks.some((personalWork) => {
+        return personalWork.publicWork
+      })
     })
     this.userService.getUser(id).subscribe((item) => {
       this.popupFormData(item as User)
@@ -135,5 +140,9 @@ export class ProfileComponent implements OnInit {
         .includes((search as string).toLowerCase())
     })
     this.noPersonalWork = this.searchedPersonalWorks.length > 0 ? false : true
+
+    this.noPersonalWork = !this.personalWorks.some((personalWork) => {
+      return personalWork.publicWork
+    })
   }
 }

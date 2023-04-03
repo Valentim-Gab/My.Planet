@@ -26,6 +26,13 @@ li {
     flex-direction: row;
     justify-content: center;
     gap: 20px;
+
+    a, p {
+      max-width: 42ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   div.titles {
@@ -36,16 +43,17 @@ li {
 
   div.btn-projects {
     justify-content: right;
+    align-items: center;
     padding: 0 20px;
+
+    .visibility {
+      height: 20px;
+    }
   }
 
   a {
     color: #fff;
     text-decoration: underline;
-    max-width: 45ch;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 
     &:visited {
       color: #fff;

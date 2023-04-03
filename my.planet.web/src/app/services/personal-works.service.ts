@@ -79,10 +79,25 @@ export class PersonalWorkService {
     )
   }
 
+  updateVisibility(personalWork: PersonalWork): Observable<PersonalWork | boolean> {
+    console.log(personalWork)
+    return this.http.patch<PersonalWork>(`${this.url}/public/visibility`, personalWork).pipe(
+      tap((item) => {
+        let msg: string = (item.publicWork) ? 'público' : 'privado'
+        this.messagesService.add(`Trabalho ${msg}`)
+        return item as PersonalWork
+      }),
+      catchError(() => {
+        this.messagesService.addError('Ocorreu um erro!')
+        return of(false)
+      })
+    )
+  }
+
   delete(id: number): Observable<PersonalWork | boolean> {
     return this.http.delete<PersonalWork>(`${this.url}/${id}`).pipe(
       tap(() => {
-        this.messagesService.add(`Projeto deletado!`)
+        this.messagesService.add(`Trabalho deletado!`)
       }),
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')

@@ -97,4 +97,8 @@ public class PersonalWorkService {
 
         this.personalWorkDao.flush();
     }
+
+    public PersonalWork updateVisibility(PersonalWork personalWork) {
+        return this.personalWorkDao.save(personalWork);
+    }
 }
