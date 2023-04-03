@@ -42,6 +42,10 @@ public class PersonalWorkService {
         return (ArrayList<PersonalWork>) this.personalWorkDao.findByUser(id);
     }
 
+    public ArrayList<PersonalWork> getByUserPublic(long id) {
+        return (ArrayList<PersonalWork>) this.personalWorkDao.findByUserPublic(id);
+    }
+
     public ResponseEntity<byte[]> getImg(Optional<String> imgName) {
         if (imgName.isPresent() && imgName.get() != null)
             return this.imageUtil.get(imgName.get(), "personal_work");
@@ -58,6 +62,7 @@ public class PersonalWorkService {
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
         personalWork.setDescription(personalWorkRequest.getDescription());
         personalWork.setLink(personalWorkRequest.getLink());
+        personalWork.setPublicWork(true);
         personalWork.setUser(user);
 
         personalWork = this.personalWorkDao.save(personalWork);

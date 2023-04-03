@@ -17,6 +17,7 @@ CREATE TABLE personal_work (
 	public BOOLEAN DEFAULT true,
 	id_user INT NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade
+	FOREIGN KEY (id_category) REFERENCES category (id_category) on delete cascade
 );
 
 CREATE TABLE media_personal_work (
@@ -35,6 +36,11 @@ CREATE TABLE commentary (
 	id_personal_work INT NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade,
 	FOREIGN KEY (id_personal_work) REFERENCES personal_work (id_personal_work) on delete cascade
+);
+
+CREATE TABLE category (
+	id_category SERIAL PRIMARY KEY,
+	name_category VARCHAR(40),
 );
 
 INSERT INTO users

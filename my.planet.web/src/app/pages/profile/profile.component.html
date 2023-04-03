@@ -43,7 +43,6 @@
     <ul *ngIf="!noPersonalWork" class="listPersonalWork">
       <li *ngFor="let personalWork of searchedPersonalWorks">
         <app-perfil-personal-work
-          *ngIf="personalWork.publicWork"
           [personalWork]="personalWork"
         ></app-perfil-personal-work>
       </li>

@@ -36,6 +36,15 @@ export class PersonalWorkService {
     )
   }
 
+  getAllByUserPublic(id: number): Observable<PersonalWork[] | boolean> {
+    return this.http.get<PersonalWork[]>(`${this.url}/user/public/${id}`).pipe(
+      catchError(() => {
+        this.messagesService.addError('Ocorreu um erro!')
+        return of(false)
+      })
+    )
+  }
+
   getPersonalWork(id: number): Observable<PersonalWork | boolean> {
     return this.http.get<PersonalWork>(`${this.url}/${id}`).pipe(
       catchError(() => {

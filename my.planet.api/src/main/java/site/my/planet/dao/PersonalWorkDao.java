@@ -14,4 +14,7 @@ public interface PersonalWorkDao extends JpaRepository<PersonalWork, Long> {
 
   @Query(value = "SELECT * FROM personal_work p WHERE p.id_user = :id", nativeQuery = true)
   public ArrayList<PersonalWork> findByUser(@Param("id") long id);
+
+  @Query(value = "SELECT * FROM personal_work p WHERE p.id_user = :id AND public = true", nativeQuery = true)
+  public ArrayList<PersonalWork> findByUserPublic(@Param("id") long id);
 }

@@ -43,14 +43,15 @@ export class ProfileComponent implements OnInit {
 
     if (this.jwtService.getTokenSub() == id) this.logged = true
 
-    this.personalWorkService.getAllByUser(id).subscribe((item) => {
+    this.personalWorkService.getAllByUserPublic(id).subscribe((item) => {
       this.personalWorks = item as PersonalWork[]
       this.searchedPersonalWorks = item as PersonalWork[]
-      this.noPersonalWork = this.searchedPersonalWorks.length > 0 ? false : true
-
-      this.noPersonalWork = !this.personalWorks.some((personalWork) => {
-        return personalWork.publicWork
-      })
+      if (this.searchedPersonalWorks.length > 0) {
+        this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
+          return personalWork.publicWork
+        })
+      } else
+        this.noPersonalWork = true
     })
     this.userService.getUser(id).subscribe((item) => {
       this.popupFormData(item as User)
@@ -139,10 +140,11 @@ export class ProfileComponent implements OnInit {
         ?.toLowerCase()
         .includes((search as string).toLowerCase())
     })
-    this.noPersonalWork = this.searchedPersonalWorks.length > 0 ? false : true
-
-    this.noPersonalWork = !this.personalWorks.some((personalWork) => {
-      return personalWork.publicWork
-    })
+    if (this.searchedPersonalWorks.length > 0) {
+      this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
+        return personalWork.publicWork
+      })
+    } else
+      this.noPersonalWork = true
   }
 }
