@@ -8,13 +8,13 @@
 ></app-alert>
 
 <section>
-  <h1>Projetos</h1>
+  <h1>Trabalhos Pessoais</h1>
   <app-search-bar
     [searchedValue]="searchedValue"
     (onSearch)="search($event)"
-    [placeholderText]="'Procurar projetos'"
+    [placeholderText]="'Procurar trabalhos'"
   ></app-search-bar>
-  <h2 *ngIf="noPersonalWorks">Nenhum projeto encontrado</h2>
+  <h2 *ngIf="noPersonalWorks">Nenhum trabalho pessoal encontrado</h2>
   <main>
     <div class="add-project">
       <button class="icon-btn add-btn" (click)="openPopup(false, null)">

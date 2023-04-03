@@ -32,4 +32,12 @@
       (click)="openVideo(iframeVideo, media.secondVideo)"
     ></app-thumbnail>
   </div>
+
+  <div class="comments-section">
+    <span (click)="showComments(spanComments, arrowDownComments)">
+      <span #spanComments>Ver comentários</span>
+      <img src="/assets/img/arrow_down.png" alt="Abrir sessão de comentários" #arrowDownComments>
+    </span>
+    <app-comments-section [personalWork]="personalWork" [showing]="showCommentsClass"></app-comments-section>
+  </div>
 </div>

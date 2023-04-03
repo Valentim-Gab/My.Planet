@@ -1,3 +1,5 @@
+import { User } from "./User"
+
 export interface PersonalWork {
   idPersonalWork?: number
   personalWorkName: string
@@ -5,4 +7,5 @@ export interface PersonalWork {
   img?: string
   link: string
   idUser?: number
+  user?: User
 }

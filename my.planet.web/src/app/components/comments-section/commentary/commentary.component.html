@@ -1,0 +1,18 @@
+<div class="commentary" [ngClass]="{ deleteComentaryOptions: deleteComentaryOptions }">
+  <div class="delete" [ngClass]="{ show: deleteComentaryOptions }">
+    <app-form-button [class]="'small'" (click)="showDeleteComentaryOptions()"
+      >CANCELAR</app-form-button
+    >
+    <app-form-button [class]="'btn-alert small'" (click)="deleteCommenatary()">CONFIRMAR</app-form-button>
+  </div>
+  <div class="header-commentary">
+    <h4>{{ commentary.user!.username }}</h4>
+    <img
+      *ngIf="showDeleteIcon"
+      src="/assets/img/trash 2_.png"
+      alt="Botão para excluir o comentário"
+      (click)="showDeleteComentaryOptions()"
+    />
+  </div>
+  <p>{{ commentary.txtCommentary }}</p>
+</div>

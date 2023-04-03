@@ -1,3 +1,5 @@
+import { PersonalWork } from "./PersonalWork";
+
 export interface Media {
   idMedia?: number;
   img?: string;

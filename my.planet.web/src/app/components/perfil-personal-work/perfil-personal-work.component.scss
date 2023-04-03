@@ -1,13 +1,13 @@
 div.profile-project {
   background: rgba(0, 0, 0, 0.75);
   width: 694px;
-  height: 330px;
   border-radius: 10px;
   padding: 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   justify-content: center;
+  transition: 1s;
 
   div.profile-project-first-section {
     display: flex;
@@ -76,9 +76,35 @@ div.profile-project {
     }
   }
 
+  div.comments-section {
+    text-align: center;
+
+    > span {
+      cursor: pointer;
+      
+      &:hover {
+        opacity: 0.5;
+      }
+
+      span {
+        font-size: 18px;
+        font-weight: 500; 
+        padding: 0.5rem;
+        user-select: none;
+      }
+
+      img {
+        transition: 0.5s;
+      }
+
+      img.showing {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
   @media (max-width: 734px) {
     width: 487px;
-    height: 510px;
 
     div.profile-project-first-section {
       > div {
@@ -104,7 +130,6 @@ div.profile-project {
 
   @media (max-width: 535px) {
     width: 290px;
-    height: 820px;
     text-align: center;
 
     div.profile-project-first-section {
@@ -135,6 +160,16 @@ div.profile-project {
     > .figure {
       display: flex;
       flex-direction: column;
+    }
+
+    div.comments-section > span {
+      span {
+        font-size: 14px;
+      }
+
+      img {
+        width: 10px;
+      }
     }
   }
 }

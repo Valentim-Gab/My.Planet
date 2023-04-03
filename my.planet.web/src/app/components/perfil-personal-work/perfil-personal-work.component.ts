@@ -17,6 +17,7 @@ export class PerfilPersonalWorkComponent implements OnInit {
   linkVideo!: string
   personalWorkImg: string = '/assets/img/project_default.webp'
   mediaImg: string = '/assets/img/media_default.png'
+  showCommentsClass: string = ''
 
   constructor(
     private mediaService: MediaService,
@@ -60,5 +61,17 @@ export class PerfilPersonalWorkComponent implements OnInit {
       this.popupVideo = ['popup-video', 'open']
       if (link && iframe) iframe.src = `https://www.youtube.com/embed/${link}`
     }
+  }
+
+  showComments(spanElement: HTMLSpanElement, arrowDownComments: HTMLImageElement) {
+    if (arrowDownComments.classList.contains('showing')) {
+      spanElement.innerHTML = 'Ver comentários'
+      arrowDownComments.classList.remove('showing')
+      this.showCommentsClass = ''
+    } else {
+      spanElement.innerHTML = 'Ocultar comentários'
+      arrowDownComments.classList.add('showing')
+      this.showCommentsClass = 'showing'
+    }  
   }
 }

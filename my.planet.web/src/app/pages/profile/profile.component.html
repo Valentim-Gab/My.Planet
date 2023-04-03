@@ -33,17 +33,17 @@
         </div>
       </div>
     </main>
-    <h2>Projetos</h2>
+    <h3>Trabalhos Pessoais</h3>
     <app-search-bar
       [searchedValue]="searchedValue"
       (onSearch)="search($event)"
-      [placeholderText]="'Procurar projetos'"
+      [placeholderText]="'Procurar trabalhos'"
     ></app-search-bar>
     <app-perfil-personal-work
       *ngFor="let personalWork of searchedPersonalWorks"
       [personalWork]="personalWork"
     ></app-perfil-personal-work>
-    <h3 *ngIf="noPersonalWork">Nenhum projeto encontrado</h3>
+    <h3 *ngIf="noPersonalWork">Nenhum trabalho pessoal encontrado</h3>
   </div>
   <div class="popup-registration {{ open }}" *ngIf="user">
     <span class="close-popup" (click)="openClosePopup()">&times;</span>
