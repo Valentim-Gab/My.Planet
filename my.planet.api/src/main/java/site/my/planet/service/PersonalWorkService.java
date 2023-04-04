@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import site.my.planet.dao.CategoryDao;
 import site.my.planet.dao.PersonalWorkDao;
 import site.my.planet.dao.UserDao;
+import site.my.planet.model.Category;
 import site.my.planet.model.PersonalWork;
 import site.my.planet.model.PersonalWorkRequest;
 import site.my.planet.model.UserModel;
@@ -20,14 +22,17 @@ public class PersonalWorkService {
     private PersonalWorkDao personalWorkDao;
     private UserDao userDao;
     private ImageUtil imageUtil;
+    private CategoryDao categoryDao;
 
     public PersonalWorkService(
             PersonalWorkDao personalWorkDao,
             UserDao userDao,
-            ImageUtil imageUtil) {
+            ImageUtil imageUtil,
+            CategoryDao categoryDao) {
         this.userDao = userDao;
         this.personalWorkDao = personalWorkDao;
         this.imageUtil = imageUtil;
+        this.categoryDao = categoryDao;
     }
 
     public Optional<PersonalWork> get(long id) {
@@ -57,6 +62,8 @@ public class PersonalWorkService {
             Optional<MultipartFile> multipartFile) {
         UserModel user = new UserModel();
         user = this.userDao.getReferenceById(personalWorkRequest.getIdUser());
+        Category category = new Category();
+        category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
 
         PersonalWork personalWork = new PersonalWork();
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
@@ -64,6 +71,7 @@ public class PersonalWorkService {
         personalWork.setLink(personalWorkRequest.getLink());
         personalWork.setPublicWork(true);
         personalWork.setUser(user);
+        personalWork.setCategory(category);
 
         personalWork = this.personalWorkDao.save(personalWork);
 
@@ -87,10 +95,14 @@ public class PersonalWorkService {
             Optional<MultipartFile> multipartFile, Optional<String> deleteImage) {
         PersonalWork personalWork = new PersonalWork();
 
+        Category category = new Category();
+        category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
+
         personalWork = this.personalWorkDao.getReferenceById(id);
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
         personalWork.setDescription(personalWorkRequest.getDescription());
         personalWork.setLink(personalWorkRequest.getLink());
+        personalWork.setCategory(category);
 
         if (multipartFile.isPresent())
             personalWork.setImg(this.imageUtil.save(

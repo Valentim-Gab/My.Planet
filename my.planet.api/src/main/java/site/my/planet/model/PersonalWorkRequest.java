@@ -15,4 +15,5 @@ public class PersonalWorkRequest {
     private String link;
     private Boolean publicWork;
     private Long idUser;
+    private Long idCategory;
 }

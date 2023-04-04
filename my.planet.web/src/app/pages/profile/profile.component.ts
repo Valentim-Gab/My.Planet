@@ -9,6 +9,8 @@ import { PersonalWorkService } from 'src/app/services/personal-works.service'
 import { UserService } from 'src/app/services/user.service'
 import { ImageUtil } from 'src/app/utils/image.util'
 import { HttpResponse } from '@angular/common/http'
+import { categoryService } from 'src/app/services/category.service'
+import { Category } from 'src/app/interfaces/Category'
 
 @Component({
   selector: 'app-profile',
@@ -29,13 +31,15 @@ export class ProfileComponent implements OnInit {
   logged: boolean = false
   noPersonalWork: boolean = false
   numberWorks: number = 0
+  categories: Category[] = []
 
   constructor(
     private imageUtil: ImageUtil,
     private personalWorkService: PersonalWorkService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private categoryService: categoryService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +59,11 @@ export class ProfileComponent implements OnInit {
     })
     this.userService.getUser(id).subscribe((item) => {
       this.popupFormData(item as User)
+    })
+
+    this.categoryService.getAll().subscribe(item => {
+      this.categories = item as Category[]
+      console.log(item)
     })
   }
 

@@ -39,6 +39,15 @@
       (onSearch)="search($event)"
       [placeholderText]="'Procurar trabalhos'"
     ></app-search-bar>
+    <h4>Categorias</h4>
+    <div class="categories">
+      <app-category-button [class]="'small'" [active]="true">Todos</app-category-button>
+      <app-category-button
+        *ngFor="let category of categories"
+        [category]="category"
+      >
+      </app-category-button>
+    </div>
     <h3 *ngIf="noPersonalWork">Nenhum trabalho pessoal encontrado</h3>
     <ul *ngIf="!noPersonalWork" class="listPersonalWork">
       <li *ngFor="let personalWork of searchedPersonalWorks">

@@ -43,4 +43,8 @@ public class PersonalWork {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private UserModel user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_category")
+    private Category category;
 }

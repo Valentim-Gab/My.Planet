@@ -9,4 +9,5 @@ export interface PersonalWork {
   publicWork?: boolean
   idUser?: number
   user?: User
+  idCategory?: number
 }

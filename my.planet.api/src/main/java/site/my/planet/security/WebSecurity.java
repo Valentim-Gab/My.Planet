@@ -85,6 +85,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/commentary/{id}").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.DELETE, "/commentary/{id}").hasAnyAuthority("u", "a")
                 //
+                .antMatchers(HttpMethod.GET, "/category").permitAll()
+                .antMatchers(HttpMethod.GET, "/category/{id}").permitAll()
+                //
                 .anyRequest().authenticated()
                 .and()
                 .cors()

@@ -26,7 +26,7 @@ public class CommentaryController {
     }
 
     @GetMapping("/work/{id}")
-    public ArrayList<Commentary> getByUser(@PathVariable("id") long id) {
+    public ArrayList<Commentary> getByPersonalWork(@PathVariable("id") long id) {
         return this.commentaryService.getByPersonalWork(id);
     }
 
