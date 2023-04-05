@@ -30,6 +30,7 @@ import { SearchUserHeaderComponent } from './components/search-user-header/searc
 import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
 import { CommentaryComponent } from './components/comments-section/commentary/commentary.component';
 import { CategoryButtonComponent } from './components/category-button/category-button.component';
+import { DropdownCategoriesComponent } from './components/popup-personal-work/dropdown-categories/dropdown-categories.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { CategoryButtonComponent } from './components/category-button/category-b
     SearchUserHeaderComponent,
     CommentsSectionComponent,
     CommentaryComponent,
-    CategoryButtonComponent
+    CategoryButtonComponent,
+    DropdownCategoriesComponent
   ],
   imports: [
     BrowserModule,

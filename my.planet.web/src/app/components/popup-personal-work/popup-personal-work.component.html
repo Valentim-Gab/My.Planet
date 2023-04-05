@@ -90,6 +90,10 @@
             <p *ngIf="popupLink.errors?.['required']">Campo obrigatório</p>
           </div>
         </div>
+        <div class="form-control">
+          <app-dropdown-categories (emitCategoryName)="setCategory($event)"></app-dropdown-categories>
+          <input type="text" value="{{category}}" formControlName="category">
+        </div>
       </div>
     </div>
     <div class="field-description">

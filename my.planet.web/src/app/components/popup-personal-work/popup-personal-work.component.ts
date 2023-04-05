@@ -9,6 +9,7 @@ import { MediaService } from 'src/app/services/media.service'
 import { PersonalWorkService } from 'src/app/services/personal-works.service'
 import { ImageUtil } from 'src/app/utils/image.util'
 import { PopupForm } from './popupForm'
+import { Category } from 'src/app/interfaces/Category'
 
 @Component({
   selector: 'app-popup-personal-work',
@@ -21,6 +22,9 @@ export class PopupPersonalWorkComponent implements OnInit {
   @Input() open!: string
   @Input() personalWork: PersonalWork | null = null
   @Input() media: Media | null = null
+
+  @Input() category: Category | null = null
+
   formDataPersonalWork: FormData = new FormData()
   formDataMedia: FormData = new FormData()
   popupForm!: FormGroup
@@ -28,6 +32,7 @@ export class PopupPersonalWorkComponent implements OnInit {
   imgUpload: string = `/assets/img/upload-image.png`
   mediaImgUpload: string = 'Escolha uma imagem'
   id: number = Number(this.route.snapshot.paramMap.get('id'))
+  idCategory: number | null = null
 
   constructor(
     private popupFormInit: PopupForm,
@@ -61,6 +66,11 @@ export class PopupPersonalWorkComponent implements OnInit {
   }
   get packetLink2() {
     return this.popupForm.get('packetLink2')!
+  }
+
+  setCategory(category: Category) {
+    this.idCategory = category.idCategory!
+    console.log(category)
   }
 
   closePopup(

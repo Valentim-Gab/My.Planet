@@ -1,0 +1,113 @@
+button {
+  margin: 0 auto;
+  z-index: 2;
+  display: block;
+  width: fit-content;
+  height: auto;
+  outline: none;
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 1rem 1.7rem;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: scaleX(0.2) scaleY(0.5) translate(250%, 100%);
+    border-top: solid 2px #ffffff;
+    border-left: solid 4px #ffffff;
+    transition: all .4s ease-in-out;
+    border-radius: 0.4rem;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) scaleX(0.2) scaleY(0.5);
+    border-bottom: solid 2px #ffffff;
+    border-right: solid 4px #ffffff;
+    transition: all .4s ease-in-out;
+    border-radius: 0.4rem;
+  }
+
+  &:hover::before {
+    transform: translate(0%, 0%) scaleX(1) scaleY(1);
+    border-top: solid 1px #ffffff;
+    border-left: solid 1px #ffffff;
+  }
+
+  &:hover::after {
+    transform: scaleX(1) scaleY(1) translate(0%, 0%);
+    border-bottom: solid 1px #ffffff;
+    border-right: solid 1px #ffffff;
+  }
+
+  img {
+    width: 12px;
+  }
+}
+
+div.categories {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 0;
+  transition: 0.4s;
+
+  &.show {
+    height: auto;
+
+    ul {
+      height: auto;
+      border: 1px solid #fff;
+    
+      li {
+        scale: 1;
+      }
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    top: 0.1rem;
+    border-radius: 0.4rem;
+    background-color: #000;
+    position: absolute;
+    height: 0;
+
+    li {
+      text-align: left;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: 0.4s;
+      scale: 0.00001;
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
+    }
+  }
+}

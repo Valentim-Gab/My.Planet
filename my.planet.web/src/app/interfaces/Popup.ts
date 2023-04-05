@@ -6,4 +6,5 @@ export interface Popup {
   imgPopupPacket: string;
   packetLink1: string;
   packetLink2: string;
+  idCategory?: number;
 }

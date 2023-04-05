@@ -31,6 +31,9 @@ export class PopupForm {
         media ? `https://youtu.be/${media.secondVideo}` : '',
         [Validators.required, Validators.pattern(this.youtubeUtil.urlValidator)]
       ),
+      category: new FormControl(personalWork ? personalWork.personalWorkName : '', [
+        Validators.required,
+      ]),
     })
   }
 }

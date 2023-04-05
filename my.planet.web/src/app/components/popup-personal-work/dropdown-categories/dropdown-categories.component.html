@@ -1,0 +1,9 @@
+<button (click)="showCategories()" type="button">
+  {{ title }}
+  <img src="/assets/img/arrow_down.png" alt="">
+</button>
+<div class="categories" [ngClass]="{'show': showCategoriesDrop}">
+  <ul *ngIf="categories">
+    <li *ngFor="let category of categories" (click)="emitCategory(category)">{{category.nameCategory}}</li>
+  </ul>
+</div>
