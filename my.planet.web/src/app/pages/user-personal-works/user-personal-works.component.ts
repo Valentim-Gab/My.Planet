@@ -31,7 +31,7 @@ export class UserPersonalWorksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.refreshList()
+    this.ngAfterViewInit()
   }
 
   @ViewChild('appPopupPesonalWork', { static: false }) child:
@@ -74,7 +74,7 @@ export class UserPersonalWorksComponent implements OnInit {
     if (this.open === '' && this.media) this.open = 'open'
   }
 
-  refreshList() {
+  ngAfterViewInit() {
     this.personalWorkService.getAllByUser(this.id).subscribe((item) => {
       this.personalWorks = item as PersonalWork[]
       this.searchedPersonalWorks = item as PersonalWork[]
@@ -93,7 +93,7 @@ export class UserPersonalWorksComponent implements OnInit {
 
   deletePersonalWork(id: number) {
     this.personalWorkService.delete(id).subscribe((item) => {
-      this.refreshList()
+      this.ngAfterViewInit()
     })
     this.openAlert()
   }

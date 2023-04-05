@@ -30,7 +30,6 @@ export class BannerPersonalWorkComponent implements OnInit {
         })
     else this.personalWorkImg = '/assets/img/project_default.webp'
 
-    console.log(this.personalWork)
     this.visibility = (this.personalWork.publicWork as boolean)
       ? '/assets/img/eye_public.png'
       : '/assets/img/eye_private.png'

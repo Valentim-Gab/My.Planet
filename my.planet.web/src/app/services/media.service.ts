@@ -63,8 +63,6 @@ export class MediaService {
     return this.http.put<Media>(`${this.url}/${id}`, formData).pipe(
       tap(() => {
         this.messagesService.add(`Projeto atualizado!`)
-        let url = this.router.url.includes('u') ? `${idUser}` : `u/${idUser}`
-        this.router.navigate([`projetos/${url}`])
       }),
       catchError(() => {
         return of(false)

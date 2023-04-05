@@ -23,8 +23,6 @@ export class PopupPersonalWorkComponent implements OnInit {
   @Input() personalWork: PersonalWork | null = null
   @Input() media: Media | null = null
 
-  @Input() category: Category | null = null
-
   formDataPersonalWork: FormData = new FormData()
   formDataMedia: FormData = new FormData()
   popupForm!: FormGroup
@@ -32,7 +30,7 @@ export class PopupPersonalWorkComponent implements OnInit {
   imgUpload: string = `/assets/img/upload-image.png`
   mediaImgUpload: string = 'Escolha uma imagem'
   id: number = Number(this.route.snapshot.paramMap.get('id'))
-  idCategory: number | null = null
+  category: Category | null = null
 
   constructor(
     private popupFormInit: PopupForm,
@@ -69,8 +67,7 @@ export class PopupPersonalWorkComponent implements OnInit {
   }
 
   setCategory(category: Category) {
-    this.idCategory = category.idCategory!
-    console.log(category)
+    this.category = (category) ? category : null
   }
 
   closePopup(
@@ -121,11 +118,14 @@ export class PopupPersonalWorkComponent implements OnInit {
   onSubmit(ImagePopupImg: HTMLImageElement, file_file_name: HTMLInputElement) {
     this.refreshValidator = false
     if (this.popupForm.invalid) return
+
+    let idCategory = (this.category?.idCategory) ? this.category?.idCategory : -1
     const popup: Popup = this.popupForm.value
     this.formDataPersonalWork = this.personalWorkService.buildRequisition(
       popup,
       this.id,
-      this.formDataPersonalWork
+      this.formDataPersonalWork,
+      idCategory
     )
 
     const personalWork: PersonalWork = {
@@ -134,6 +134,7 @@ export class PopupPersonalWorkComponent implements OnInit {
       description: this.personalWork?.description!,
       link: this.personalWork?.link!,
       img: this.personalWork?.img,
+      idCategory: idCategory
     }
 
     const media: Media = {
@@ -192,7 +193,9 @@ export class PopupPersonalWorkComponent implements OnInit {
         this.formDataMedia,
         this.id
       )
-      .subscribe()
+      .subscribe(() => {
+        this.refreshList.emit()
+      })
   }
 
   refreshFormPopup(media: Media | null) {
@@ -208,6 +211,11 @@ export class PopupPersonalWorkComponent implements OnInit {
 
     if (this.media && this.media.img)
       this.mediaImgUpload = `Alterar a imagem existente`
+
+    if (this.personalWork && this.personalWork.category)
+      this.category = this.personalWork.category
+    else
+      this.category = null
 
     this.popupForm = this.popupFormInit.initFormPopup(
       this.personalWork!,

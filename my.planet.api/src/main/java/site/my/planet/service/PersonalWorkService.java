@@ -62,17 +62,20 @@ public class PersonalWorkService {
             Optional<MultipartFile> multipartFile) {
         UserModel user = new UserModel();
         user = this.userDao.getReferenceById(personalWorkRequest.getIdUser());
-        Category category = new Category();
-        category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
 
         PersonalWork personalWork = new PersonalWork();
+
+        if (personalWorkRequest.getIdCategory() > -1) {
+            Category category = new Category();
+            category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
+            personalWork.setCategory(category);
+        }
+
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
         personalWork.setDescription(personalWorkRequest.getDescription());
         personalWork.setLink(personalWorkRequest.getLink());
         personalWork.setPublicWork(true);
         personalWork.setUser(user);
-        personalWork.setCategory(category);
-
         personalWork = this.personalWorkDao.save(personalWork);
 
         if (multipartFile.isPresent())
@@ -94,15 +97,18 @@ public class PersonalWorkService {
     public void update(long id, PersonalWorkRequest personalWorkRequest,
             Optional<MultipartFile> multipartFile, Optional<String> deleteImage) {
         PersonalWork personalWork = new PersonalWork();
-
-        Category category = new Category();
-        category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
-
         personalWork = this.personalWorkDao.getReferenceById(id);
+
+        if (personalWorkRequest.getIdCategory() > -1) {
+            Category category = new Category();
+            category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
+            personalWork.setCategory(category);
+        } else
+            personalWork.setCategory(null);
+
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
         personalWork.setDescription(personalWorkRequest.getDescription());
         personalWork.setLink(personalWorkRequest.getLink());
-        personalWork.setCategory(category);
 
         if (multipartFile.isPresent())
             personalWork.setImg(this.imageUtil.save(

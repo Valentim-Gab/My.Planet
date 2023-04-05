@@ -115,13 +115,14 @@ export class PersonalWorkService {
     )
   }
 
-  buildRequisition(popup: Popup, id: number, formData: FormData): FormData {
+  buildRequisition(popup: Popup, id: number, formData: FormData, idCategory: number | null): FormData {
     const personalWork: PersonalWork = {
       personalWorkName: popup.popupName,
       description: popup.popupDescription,
       img: undefined,
       link: popup.popupLink,
       idUser: id,
+      idCategory: idCategory
     }
 
     formData.set('personal-work', JSON.stringify(personalWork))

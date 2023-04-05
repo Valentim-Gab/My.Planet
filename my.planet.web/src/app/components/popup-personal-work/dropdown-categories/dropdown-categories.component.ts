@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Category } from 'src/app/interfaces/Category';
 import { categoryService } from 'src/app/services/category.service';
 
@@ -9,6 +9,7 @@ import { categoryService } from 'src/app/services/category.service';
 })
 export class DropdownCategoriesComponent implements OnInit {
   @Output() emitCategoryName: EventEmitter<Category> = new EventEmitter<Category>()
+  @Input() category: Category | null = null
   categories: Category[] = []
   showCategoriesDrop: boolean = false
   title: string = 'Categorias'
@@ -21,11 +22,12 @@ export class DropdownCategoriesComponent implements OnInit {
     })
   }
 
-  showCategories() {
-    this.showCategoriesDrop = !this.showCategoriesDrop
+  showCategories(action: boolean) {
+    this.showCategoriesDrop = action
   }
 
   emitCategory(category: Category) {
+    this.showCategories(false)
     this.title = category.nameCategory
     this.emitCategoryName.emit(category)
   }

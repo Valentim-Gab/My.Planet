@@ -12,7 +12,7 @@ import site.my.planet.model.UserModel;
 
 public class JWTAutentication {
 
-    public static final long TOKEN_EXPIRATION = Duration.ofMinutes(5).toMillis();
+    public static final long TOKEN_EXPIRATION = Duration.ofMinutes(99999).toMillis();
     public static final String TOKEN_KEY = "ProgramacaoOrientadaAObjetosParaAWeb2Valentim";
 
     public String tokenGenerator(UserModel user) {

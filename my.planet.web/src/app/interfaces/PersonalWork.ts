@@ -1,3 +1,4 @@
+import { Category } from "./Category"
 import { User } from "./User"
 
 export interface PersonalWork {
@@ -9,5 +10,6 @@ export interface PersonalWork {
   publicWork?: boolean
   idUser?: number
   user?: User
-  idCategory?: number
+  idCategory?: number | null
+  category?: Category
 }
