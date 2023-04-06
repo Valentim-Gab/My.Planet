@@ -29,6 +29,8 @@ import { LoaderPlanetComponent } from './components/loader-planet/loader-planet.
 import { SearchUserHeaderComponent } from './components/search-user-header/search-user-header.component';
 import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
 import { CommentaryComponent } from './components/comments-section/commentary/commentary.component';
+import { CategoryButtonComponent } from './components/category-button/category-button.component';
+import { DropdownCategoriesComponent } from './components/popup-personal-work/dropdown-categories/dropdown-categories.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { CommentaryComponent } from './components/comments-section/commentary/co
     LoaderPlanetComponent,
     SearchUserHeaderComponent,
     CommentsSectionComponent,
-    CommentaryComponent
+    CommentaryComponent,
+    CategoryButtonComponent,
+    DropdownCategoriesComponent
   ],
   imports: [
     BrowserModule,

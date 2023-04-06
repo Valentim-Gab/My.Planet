@@ -68,21 +68,25 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/media/{id}").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.DELETE, "/media/{id}").hasAnyAuthority("u", "a")
                 //
-                .antMatchers(HttpMethod.GET, "/personal-work").permitAll()
+                .antMatchers(HttpMethod.GET, "/personal-work").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.GET, "/personal-work/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/personal-work/user/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/personal-work/user/public/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/personal-work/img/{imgName}").permitAll()
                 .antMatchers(HttpMethod.POST, "/personal-work").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.PUT, "/personal-work/{id}").hasAnyAuthority("u", "a")
+                .antMatchers(HttpMethod.PATCH, "/personal-work/public/visibility").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.DELETE, "/personal-work/{id}").hasAnyAuthority("u", "a")
                 //
                 .antMatchers(HttpMethod.GET, "/commentary").permitAll()
                 .antMatchers(HttpMethod.GET, "/commentary/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/commentary/work/{id}").permitAll()
-                .antMatchers(HttpMethod.POST, "/commentary").permitAll()
-                // .antMatchers(HttpMethod.POST, "/commentary").hasAnyAuthority("u", "a")
+                .antMatchers(HttpMethod.POST, "/commentary").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.PUT, "/commentary/{id}").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.DELETE, "/commentary/{id}").hasAnyAuthority("u", "a")
+                //
+                .antMatchers(HttpMethod.GET, "/category").permitAll()
+                .antMatchers(HttpMethod.GET, "/category/{id}").permitAll()
                 //
                 .anyRequest().authenticated()
                 .and()

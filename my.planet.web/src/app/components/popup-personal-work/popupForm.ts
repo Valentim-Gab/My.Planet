@@ -30,7 +30,7 @@ export class PopupForm {
       packetLink2: new FormControl(
         media ? `https://youtu.be/${media.secondVideo}` : '',
         [Validators.required, Validators.pattern(this.youtubeUtil.urlValidator)]
-      ),
+      )
     })
   }
 }

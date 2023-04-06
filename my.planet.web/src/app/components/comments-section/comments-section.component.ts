@@ -43,9 +43,8 @@ export class CommentsSectionComponent implements OnInit {
             personalWork: this.personalWork,
             user: item as User
           }
-          console.log(commentary)
           this.commentaryService.createCommentary(commentary).subscribe(() => {
-            this.ngAfterViewInit(true, comments)
+            this.ngAfterViewInit(comments)
             this.txtCommentary = ''
           })
         })
@@ -65,13 +64,14 @@ export class CommentsSectionComponent implements OnInit {
     })
   }
 
-  ngAfterViewInit(scroll: boolean, div?: HTMLDivElement) {
+  ngAfterViewInit(div?: HTMLDivElement) {
     this.commentaryService
       .getCommentaryByPersonalWork(this.personalWork.idPersonalWork!)
       .subscribe((item) => {
         this.commentarys = item as Commentary[];
         setTimeout(() => {
-          div!.scrollTo(0, div!.scrollHeight);
+          if (div)
+            div.scrollTo(0, div.scrollHeight);
         }, 0);
       });
   }

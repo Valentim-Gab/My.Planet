@@ -38,7 +38,7 @@
   #appPopupPesonalWork
   [open]="open"
   (emitterClosePopup)="openPopup(false, null)"
-  (refreshList)="refreshList()"
+  (refreshList)="ngAfterViewInit()"
   [personalWork]="personalWork"
   [media]="media"
 ></app-popup-personal-work>

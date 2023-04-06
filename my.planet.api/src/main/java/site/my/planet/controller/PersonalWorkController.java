@@ -39,6 +39,11 @@ public class PersonalWorkController {
         return this.personalWorkService.getByUser(id);
     }
 
+    @GetMapping("/user/public/{id}")
+    public ArrayList<PersonalWork> getByUserPublic(@PathVariable("id") long id) {
+        return this.personalWorkService.getByUserPublic(id);
+    }
+
     @GetMapping("/img/{imgName}")
     public ResponseEntity<byte[]> getImg(@PathVariable("imgName") Optional<String> imgName) {
         return this.personalWorkService.getImg(imgName);
@@ -70,5 +75,10 @@ public class PersonalWorkController {
                 personalWork, PersonalWorkRequest.class);
 
         this.personalWorkService.update(id, personalWorkRequest, multipartFile, deleteImage);
+    }
+
+    @PatchMapping("/public/visibility")
+    public PersonalWork updateVisibility(@RequestBody PersonalWork personalWork) {
+        return this.personalWorkService.updateVisibility(personalWork);
     }
 }

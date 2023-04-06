@@ -13,5 +13,7 @@ public class PersonalWorkRequest {
     private String description;
     private String img;
     private String link;
+    private Boolean publicWork;
     private Long idUser;
+    private Long idCategory;
 }

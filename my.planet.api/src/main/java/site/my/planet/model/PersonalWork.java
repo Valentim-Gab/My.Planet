@@ -37,7 +37,14 @@ public class PersonalWork {
     @Column(name = "link")
     private String link;
 
+    @Column(name = "public")
+    private Boolean publicWork;
+
     @ManyToOne
     @JoinColumn(name = "id_user")
     private UserModel user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_category")
+    private Category category;
 }

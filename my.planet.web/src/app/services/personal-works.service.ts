@@ -36,6 +36,15 @@ export class PersonalWorkService {
     )
   }
 
+  getAllByUserPublic(id: number): Observable<PersonalWork[] | boolean> {
+    return this.http.get<PersonalWork[]>(`${this.url}/user/public/${id}`).pipe(
+      catchError(() => {
+        this.messagesService.addError('Ocorreu um erro!')
+        return of(false)
+      })
+    )
+  }
+
   getPersonalWork(id: number): Observable<PersonalWork | boolean> {
     return this.http.get<PersonalWork>(`${this.url}/${id}`).pipe(
       catchError(() => {
@@ -79,10 +88,13 @@ export class PersonalWorkService {
     )
   }
 
-  delete(id: number): Observable<PersonalWork | boolean> {
-    return this.http.delete<PersonalWork>(`${this.url}/${id}`).pipe(
-      tap(() => {
-        this.messagesService.add(`Projeto deletado!`)
+  updateVisibility(personalWork: PersonalWork): Observable<PersonalWork | boolean> {
+    console.log(personalWork)
+    return this.http.patch<PersonalWork>(`${this.url}/public/visibility`, personalWork).pipe(
+      tap((item) => {
+        let msg: string = (item.publicWork) ? 'público' : 'privado'
+        this.messagesService.add(`Trabalho ${msg}`)
+        return item as PersonalWork
       }),
       catchError(() => {
         this.messagesService.addError('Ocorreu um erro!')
@@ -91,13 +103,26 @@ export class PersonalWorkService {
     )
   }
 
-  buildRequisition(popup: Popup, id: number, formData: FormData): FormData {
+  delete(id: number): Observable<PersonalWork | boolean> {
+    return this.http.delete<PersonalWork>(`${this.url}/${id}`).pipe(
+      tap(() => {
+        this.messagesService.add(`Trabalho deletado!`)
+      }),
+      catchError(() => {
+        this.messagesService.addError('Ocorreu um erro!')
+        return of(false)
+      })
+    )
+  }
+
+  buildRequisition(popup: Popup, id: number, formData: FormData, idCategory: number | null): FormData {
     const personalWork: PersonalWork = {
       personalWorkName: popup.popupName,
       description: popup.popupDescription,
       img: undefined,
       link: popup.popupLink,
       idUser: id,
+      idCategory: idCategory
     }
 
     formData.set('personal-work', JSON.stringify(personalWork))

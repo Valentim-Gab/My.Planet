@@ -39,11 +39,32 @@
       (onSearch)="search($event)"
       [placeholderText]="'Procurar trabalhos'"
     ></app-search-bar>
-    <app-perfil-personal-work
-      *ngFor="let personalWork of searchedPersonalWorks"
-      [personalWork]="personalWork"
-    ></app-perfil-personal-work>
+    <h4>Categorias</h4>
+    <div class="categories">
+      <app-category-button
+        [class]="'small'"
+        (click)="filterByCategory('', null, appCategoryButtonAll)"
+        [active]="categoryActivated == ''"
+        #appCategoryButtonAll
+      >Todos
+      </app-category-button>
+      <app-category-button
+        *ngFor="let category of categories"
+        [category]="category"
+        (click)="filterByCategory(category.nameCategory, appCategoryButton, appCategoryButtonAll)"
+        [active]="category.nameCategory === categoryActivated"
+        #appCategoryButton
+      >
+      </app-category-button>
+    </div>
     <h3 *ngIf="noPersonalWork">Nenhum trabalho pessoal encontrado</h3>
+    <ul *ngIf="!noPersonalWork" class="listPersonalWork">
+      <li *ngFor="let personalWork of searchedPersonalWorks">
+        <app-perfil-personal-work
+          [personalWork]="personalWork"
+        ></app-perfil-personal-work>
+      </li>
+    </ul>
   </div>
   <div class="popup-registration {{ open }}" *ngIf="user">
     <span class="close-popup" (click)="openClosePopup()">&times;</span>

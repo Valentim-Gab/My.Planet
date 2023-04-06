@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import site.my.planet.dao.CategoryDao;
 import site.my.planet.dao.PersonalWorkDao;
 import site.my.planet.dao.UserDao;
+import site.my.planet.model.Category;
 import site.my.planet.model.PersonalWork;
 import site.my.planet.model.PersonalWorkRequest;
 import site.my.planet.model.UserModel;
@@ -20,14 +22,17 @@ public class PersonalWorkService {
     private PersonalWorkDao personalWorkDao;
     private UserDao userDao;
     private ImageUtil imageUtil;
+    private CategoryDao categoryDao;
 
     public PersonalWorkService(
             PersonalWorkDao personalWorkDao,
             UserDao userDao,
-            ImageUtil imageUtil) {
+            ImageUtil imageUtil,
+            CategoryDao categoryDao) {
         this.userDao = userDao;
         this.personalWorkDao = personalWorkDao;
         this.imageUtil = imageUtil;
+        this.categoryDao = categoryDao;
     }
 
     public Optional<PersonalWork> get(long id) {
@@ -40,6 +45,10 @@ public class PersonalWorkService {
 
     public ArrayList<PersonalWork> getByUser(long id) {
         return (ArrayList<PersonalWork>) this.personalWorkDao.findByUser(id);
+    }
+
+    public ArrayList<PersonalWork> getByUserPublic(long id) {
+        return (ArrayList<PersonalWork>) this.personalWorkDao.findByUserPublic(id);
     }
 
     public ResponseEntity<byte[]> getImg(Optional<String> imgName) {
@@ -55,11 +64,18 @@ public class PersonalWorkService {
         user = this.userDao.getReferenceById(personalWorkRequest.getIdUser());
 
         PersonalWork personalWork = new PersonalWork();
+
+        if (personalWorkRequest.getIdCategory() > -1) {
+            Category category = new Category();
+            category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
+            personalWork.setCategory(category);
+        }
+
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
         personalWork.setDescription(personalWorkRequest.getDescription());
         personalWork.setLink(personalWorkRequest.getLink());
+        personalWork.setPublicWork(true);
         personalWork.setUser(user);
-
         personalWork = this.personalWorkDao.save(personalWork);
 
         if (multipartFile.isPresent())
@@ -81,8 +97,15 @@ public class PersonalWorkService {
     public void update(long id, PersonalWorkRequest personalWorkRequest,
             Optional<MultipartFile> multipartFile, Optional<String> deleteImage) {
         PersonalWork personalWork = new PersonalWork();
-
         personalWork = this.personalWorkDao.getReferenceById(id);
+
+        if (personalWorkRequest.getIdCategory() > -1) {
+            Category category = new Category();
+            category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
+            personalWork.setCategory(category);
+        } else
+            personalWork.setCategory(null);
+
         personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
         personalWork.setDescription(personalWorkRequest.getDescription());
         personalWork.setLink(personalWorkRequest.getLink());
@@ -96,5 +119,9 @@ public class PersonalWorkService {
             personalWork.setImg(personalWork.getImg());
 
         this.personalWorkDao.flush();
+    }
+
+    public PersonalWork updateVisibility(PersonalWork personalWork) {
+        return this.personalWorkDao.save(personalWork);
     }
 }
