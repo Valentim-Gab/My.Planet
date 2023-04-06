@@ -1,4 +1,4 @@
-<button type="button" class="btn {{ class }}" (click)="filterByCategory()">
+<button type="button" class="btn {{ class }}">
   <strong *ngIf="category; else noCategory">{{ category.nameCategory }}</strong>
   <ng-template #noCategory>
     <strong>Todos</strong>

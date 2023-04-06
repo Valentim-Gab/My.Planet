@@ -15,8 +15,4 @@ export class CategoryButtonComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  filterByCategory() {
-    
-  }
 }

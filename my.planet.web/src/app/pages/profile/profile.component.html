@@ -41,10 +41,19 @@
     ></app-search-bar>
     <h4>Categorias</h4>
     <div class="categories">
-      <app-category-button [class]="'small'" [active]="true">Todos</app-category-button>
+      <app-category-button
+        [class]="'small'"
+        (click)="filterByCategory('', null, appCategoryButtonAll)"
+        [active]="categoryActivated == ''"
+        #appCategoryButtonAll
+      >Todos
+      </app-category-button>
       <app-category-button
         *ngFor="let category of categories"
         [category]="category"
+        (click)="filterByCategory(category.nameCategory, appCategoryButton, appCategoryButtonAll)"
+        [active]="category.nameCategory === categoryActivated"
+        #appCategoryButton
       >
       </app-category-button>
     </div>

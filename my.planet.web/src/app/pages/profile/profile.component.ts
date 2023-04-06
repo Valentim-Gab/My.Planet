@@ -11,6 +11,7 @@ import { ImageUtil } from 'src/app/utils/image.util'
 import { HttpResponse } from '@angular/common/http'
 import { categoryService } from 'src/app/services/category.service'
 import { Category } from 'src/app/interfaces/Category'
+import { CategoryButtonComponent } from 'src/app/components/category-button/category-button.component'
 
 @Component({
   selector: 'app-profile',
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
   noPersonalWork: boolean = false
   numberWorks: number = 0
   categories: Category[] = []
+  categoryActivated: string = ''
 
   constructor(
     private imageUtil: ImageUtil,
@@ -51,17 +53,18 @@ export class ProfileComponent implements OnInit {
       this.personalWorks = item as PersonalWork[]
       this.searchedPersonalWorks = item as PersonalWork[]
       if (this.searchedPersonalWorks.length > 0) {
-        this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
-          return personalWork.publicWork
-        })
-      } else
-        this.noPersonalWork = true
+        this.noPersonalWork = !this.searchedPersonalWorks.some(
+          (personalWork) => {
+            return personalWork.publicWork
+          }
+        )
+      } else this.noPersonalWork = true
     })
     this.userService.getUser(id).subscribe((item) => {
       this.popupFormData(item as User)
     })
 
-    this.categoryService.getAll().subscribe(item => {
+    this.categoryService.getAll().subscribe((item) => {
       this.categories = item as Category[]
       console.log(item)
     })
@@ -145,15 +148,57 @@ export class ProfileComponent implements OnInit {
 
   search(search: string) {
     this.searchedPersonalWorks = this.personalWorks.filter((personalWork) => {
-      return personalWork.personalWorkName
-        ?.toLowerCase()
-        .includes((search as string).toLowerCase())
+      if (
+        personalWork.personalWorkName
+          ?.toLowerCase()
+          .includes((search as string).toLowerCase())
+      )
+        if (this.categoryActivated)
+          return personalWork.category?.nameCategory
+            ?.toLowerCase()
+            .includes((this.categoryActivated as string).toLowerCase())
+        else return true
+      return false
     })
     if (this.searchedPersonalWorks.length > 0) {
       this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
         return personalWork.publicWork
       })
-    } else
-      this.noPersonalWork = true
+    } else this.noPersonalWork = true
+  }
+
+  filterByCategory(
+    nameCategory: string,
+    appCategoryButton: CategoryButtonComponent | null,
+    appCategoryButtonAll: CategoryButtonComponent | null
+  ) {
+    if (nameCategory) {
+      this.searchedPersonalWorks = this.personalWorks.filter((personalWork) => {
+        return personalWork.category?.nameCategory
+          ?.toLowerCase()
+          .includes((nameCategory as string).toLowerCase())
+      })
+      appCategoryButtonAll!.active = false
+
+      if (appCategoryButton) {
+        if (this.categoryActivated != nameCategory) {
+          this.categoryActivated = nameCategory
+          this.categories.forEach((category) => {
+            appCategoryButton.active = (category.nameCategory === nameCategory)
+          })
+        }
+      }
+    } else {
+      this.searchedPersonalWorks = this.personalWorks.filter((personalWork) => {
+        return personalWork
+      })
+      this.categoryActivated = ''
+    }
+
+    if (this.searchedPersonalWorks.length > 0)
+      this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
+        return personalWork.publicWork
+      })
+    else this.noPersonalWork = true
   }
 }

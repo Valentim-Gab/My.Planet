@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 50px;
   text-align: center;
-  height: 1020px;
   border-radius: 0.4rem;
   background-color: #000000;
   position: absolute;
@@ -243,7 +242,6 @@
   @media screen and (max-width: 768px) {
     width: -webkit-fill-available;
     margin: 5rem 1rem;
-    height: 1210px;
 
     .form-popup > div {
       display: flex;
@@ -291,10 +289,6 @@
         }
       }
     }
-  }
-
-  @media screen and (max-width: 500px) {
-    height: 64em;
   }
 }
 

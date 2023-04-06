@@ -70,7 +70,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 //
                 .antMatchers(HttpMethod.GET, "/personal-work").hasAnyAuthority("u", "a")
                 .antMatchers(HttpMethod.GET, "/personal-work/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/personal-work/user/{id}").hasAnyAuthority("u", "a")
+                .antMatchers(HttpMethod.GET, "/personal-work/user/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/personal-work/user/public/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/personal-work/img/{imgName}").permitAll()
                 .antMatchers(HttpMethod.POST, "/personal-work").hasAnyAuthority("u", "a")
