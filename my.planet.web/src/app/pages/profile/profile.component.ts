@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { JwtService } from 'src/app/security/jwt.service'
-import { MediaProject } from 'src/app/interfaces/MediaProject'
-import { Project } from 'src/app/interfaces/Project'
+import { Media } from 'src/app/interfaces/Media'
+import { PersonalWork } from 'src/app/interfaces/PersonalWork'
 import { User } from 'src/app/interfaces/User'
-import { ProjectService } from 'src/app/services/project.service'
+import { PersonalWorkService } from 'src/app/services/personal-works.service'
 import { UserService } from 'src/app/services/user.service'
 import { ImageUtil } from 'src/app/utils/image.util'
 import { HttpResponse } from '@angular/common/http'
+import { categoryService } from 'src/app/services/category.service'
+import { Category } from 'src/app/interfaces/Category'
+import { CategoryButtonComponent } from 'src/app/components/category-button/category-button.component'
 
 @Component({
   selector: 'app-profile',
@@ -16,8 +19,8 @@ import { HttpResponse } from '@angular/common/http'
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  mediaProjects!: MediaProject[]
-  projects!: Project[]
+  medias!: Media[]
+  personalWorks!: PersonalWork[]
   user?: User
   popupForm!: FormGroup
   open = ''
@@ -25,16 +28,20 @@ export class ProfileComponent implements OnInit {
   imgUpload: string = '/assets/img/upload-image.png'
   userImg: string = '/assets/img/default_profile.png'
   searchedValue!: string
-  searchedProjects!: Project[]
+  searchedPersonalWorks!: PersonalWork[]
   logged: boolean = false
-  noProjects: boolean = false
+  noPersonalWork: boolean = false
+  numberWorks: number = 0
+  categories: Category[] = []
+  categoryActivated: string = ''
 
   constructor(
     private imageUtil: ImageUtil,
-    private projectService: ProjectService,
+    private personalWorkService: PersonalWorkService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private categoryService: categoryService
   ) {}
 
   ngOnInit(): void {
@@ -42,13 +49,24 @@ export class ProfileComponent implements OnInit {
 
     if (this.jwtService.getTokenSub() == id) this.logged = true
 
-    this.projectService.getAllByUser(id).subscribe((item) => {
-      this.projects = item as Project[]
-      this.searchedProjects = item as Project[]
-      this.noProjects = this.searchedProjects.length > 0 ? false : true
+    this.personalWorkService.getAllByUserPublic(id).subscribe((item) => {
+      this.personalWorks = item as PersonalWork[]
+      this.searchedPersonalWorks = item as PersonalWork[]
+      if (this.searchedPersonalWorks.length > 0) {
+        this.noPersonalWork = !this.searchedPersonalWorks.some(
+          (personalWork) => {
+            return personalWork.publicWork
+          }
+        )
+      } else this.noPersonalWork = true
     })
     this.userService.getUser(id).subscribe((item) => {
       this.popupFormData(item as User)
+    })
+
+    this.categoryService.getAll().subscribe((item) => {
+      this.categories = item as Category[]
+      console.log(item)
     })
   }
 
@@ -129,11 +147,58 @@ export class ProfileComponent implements OnInit {
   }
 
   search(search: string) {
-    this.searchedProjects = this.projects.filter((project) => {
-      return project.projectName
-        ?.toLowerCase()
-        .includes((search as string).toLowerCase())
+    this.searchedPersonalWorks = this.personalWorks.filter((personalWork) => {
+      if (
+        personalWork.personalWorkName
+          ?.toLowerCase()
+          .includes((search as string).toLowerCase())
+      )
+        if (this.categoryActivated)
+          return personalWork.category?.nameCategory
+            ?.toLowerCase()
+            .includes((this.categoryActivated as string).toLowerCase())
+        else return true
+      return false
     })
-    this.noProjects = this.searchedProjects.length > 0 ? false : true
+    if (this.searchedPersonalWorks.length > 0) {
+      this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
+        return personalWork.publicWork
+      })
+    } else this.noPersonalWork = true
+  }
+
+  filterByCategory(
+    nameCategory: string,
+    appCategoryButton: CategoryButtonComponent | null,
+    appCategoryButtonAll: CategoryButtonComponent | null
+  ) {
+    if (nameCategory) {
+      this.searchedPersonalWorks = this.personalWorks.filter((personalWork) => {
+        return personalWork.category?.nameCategory
+          ?.toLowerCase()
+          .includes((nameCategory as string).toLowerCase())
+      })
+      appCategoryButtonAll!.active = false
+
+      if (appCategoryButton) {
+        if (this.categoryActivated != nameCategory) {
+          this.categoryActivated = nameCategory
+          this.categories.forEach((category) => {
+            appCategoryButton.active = (category.nameCategory === nameCategory)
+          })
+        }
+      }
+    } else {
+      this.searchedPersonalWorks = this.personalWorks.filter((personalWork) => {
+        return personalWork
+      })
+      this.categoryActivated = ''
+    }
+
+    if (this.searchedPersonalWorks.length > 0)
+      this.noPersonalWork = !this.searchedPersonalWorks.some((personalWork) => {
+        return personalWork.publicWork
+      })
+    else this.noPersonalWork = true
   }
 }

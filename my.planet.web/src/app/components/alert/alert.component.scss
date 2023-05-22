@@ -11,8 +11,8 @@
   box-shadow: 10px 10px 10px 4px rgba(0, 0, 0, 0.25);
   padding: 60px;
   border-radius: 0.4rem;
-  position: absolute;
-  top: 100px;
+  position: fixed;
+  top: 10%;
   z-index: 10;
   transition: 0.4s;
   transform: scale(0.001);
@@ -56,8 +56,32 @@
   }
 
   @media (max-width: 420px) {
+    padding: 30px;
+    gap: 20px;
+
+    img {
+      width: 50px;
+    }
+
+    > h1 {
+      text-shadow: none;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
     .buttons {
+      gap: 5px;
+      margin-top: 0;
       flex-direction: column-reverse;
+    }
+
+    app-form-button {
+      scale: 0.6;
     }
   }
 

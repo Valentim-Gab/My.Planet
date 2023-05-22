@@ -11,12 +11,12 @@ import { LoginComponent } from "./pages/login/login.component"
 import { FormButtonComponent } from "./components/form-button/form-button.component"
 import { RegistrationComponent } from "./pages/registration/registration.component"
 import { FormMainComponent } from "./components/form-main/form-main.component"
-import { UserProjectsComponent } from "./pages/user-projects/user-projects.component"
-import { BannerProjectComponent } from "./components/banner-project/banner-project.component"
-import { PopupProjectComponent } from "./components/popup-project/popup-project.component"
+import { UserPersonalWorksComponent } from "./pages/user-personal-works/user-personal-works.component"
+import { BannerPersonalWorkComponent } from "./components/banner-personal-work/banner-personal-work.component"
+import { PopupPersonalWorkComponent } from "./components/popup-personal-work/popup-personal-work.component"
 import { EditAccountComponent } from "./pages/edit-account/edit-account.component"
 import { ProfileComponent } from "./pages/profile/profile.component"
-import { PerfilProjectComponent } from "./components/perfil-project/perfil-project.component"
+import { PerfilPersonalWorkComponent } from "./components/perfil-personal-work/perfil-personal-work.component"
 import { ThumbnailComponent } from "./components/thumbnail/thumbnail.component"
 import { AlertComponent } from "./components/alert/alert.component"
 import { MessagesComponent } from "./components/messages/messages.component"
@@ -27,6 +27,10 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { TokenInterceptor } from "./security/token-interceptor";
 import { LoaderPlanetComponent } from './components/loader-planet/loader-planet.component';
 import { SearchUserHeaderComponent } from './components/search-user-header/search-user-header.component';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
+import { CommentaryComponent } from './components/comments-section/commentary/commentary.component';
+import { CategoryButtonComponent } from './components/category-button/category-button.component';
+import { DropdownCategoriesComponent } from './components/popup-personal-work/dropdown-categories/dropdown-categories.component';
 
 @NgModule({
   declarations: [
@@ -37,12 +41,12 @@ import { SearchUserHeaderComponent } from './components/search-user-header/searc
     FormButtonComponent,
     RegistrationComponent,
     FormMainComponent,
-    UserProjectsComponent,
-    BannerProjectComponent,
-    PopupProjectComponent,
+    UserPersonalWorksComponent,
+    BannerPersonalWorkComponent,
+    PopupPersonalWorkComponent,
     EditAccountComponent,
     ProfileComponent,
-    PerfilProjectComponent,
+    PerfilPersonalWorkComponent,
     ThumbnailComponent,
     AlertComponent,
     MessagesComponent,
@@ -51,7 +55,11 @@ import { SearchUserHeaderComponent } from './components/search-user-header/searc
     SearchBarComponent,
     NotFoundPageComponent,
     LoaderPlanetComponent,
-    SearchUserHeaderComponent
+    SearchUserHeaderComponent,
+    CommentsSectionComponent,
+    CommentaryComponent,
+    CategoryButtonComponent,
+    DropdownCategoriesComponent
   ],
   imports: [
     BrowserModule,

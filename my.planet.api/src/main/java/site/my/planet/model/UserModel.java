@@ -39,7 +39,7 @@ public class UserModel {
     @Column(name = "img")
     private String img;
 
-    @Column(name = "permissao")
+    @Column(name = "permission")
     private String permission;
 
     @Transient

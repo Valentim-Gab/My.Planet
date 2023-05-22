@@ -1,0 +1,25 @@
+<button type="button" class="btn {{ class }}">
+  <strong *ngIf="category; else noCategory">{{ category.nameCategory }}</strong>
+  <ng-template #noCategory>
+    <strong>Todos</strong>
+  </ng-template>
+  <div id="container-stars">
+    <div id="stars"></div>
+  </div>
+
+  <div id="glow">
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+</button>
+<div class="active">
+  <div class="pyramid-loader" *ngIf="active">
+    <div class="wrapper">
+      <span class="side side1"></span>
+      <span class="side side2"></span>
+      <span class="side side3"></span>
+      <span class="side side4"></span>
+      <span class="shadow"></span>
+    </div>  
+  </div>
+</div>

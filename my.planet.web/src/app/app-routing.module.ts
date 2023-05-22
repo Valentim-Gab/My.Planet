@@ -5,7 +5,7 @@ import { EditAccountComponent } from './pages/edit-account/edit-account.componen
 import { HomeComponent } from './pages/home/home.component'
 import { LoginComponent } from './pages/login/login.component'
 import { ProfileComponent } from './pages/profile/profile.component'
-import { UserProjectsComponent } from './pages/user-projects/user-projects.component'
+import { UserPersonalWorksComponent } from './pages/user-personal-works/user-personal-works.component'
 import { SearchUserComponent } from './pages/search-user/search-user.component'
 import { AuthGuard } from './security/guards/auth.guard'
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component'
@@ -33,12 +33,12 @@ const routes: Routes = [
   },
   {
     path: 'projetos/:id',
-    component: UserProjectsComponent,
+    component: UserPersonalWorksComponent,
     canActivate: [UserRouteGuard, AuthGuard, ExpiredGuard],
   },
   {
     path: 'projetos/u/:id',
-    component: UserProjectsComponent,
+    component: UserPersonalWorksComponent,
     canActivate: [UserRouteGuard, AuthGuard, ExpiredGuard],
   },
   {

@@ -1,0 +1,45 @@
+<app-alert
+  [open]="openAlertPersonalWork"
+  [mainText]="
+    'Você está prestes a excluir o seu projeto, essa ação não pode ser desfeita, deseja prosseguir?'
+  "
+  (emitterCloseAlert)="openAlert(null)"
+  (emitterDelete)="deletePersonalWork(id_personalWork)"
+></app-alert>
+
+<section>
+  <h1>Trabalhos Pessoais</h1>
+  <app-search-bar
+    [searchedValue]="searchedValue"
+    (onSearch)="search($event)"
+    [placeholderText]="'Procurar trabalhos'"
+  ></app-search-bar>
+  <h2 *ngIf="noPersonalWorks">Nenhum trabalho pessoal encontrado</h2>
+  <main>
+    <div class="add-project">
+      <button class="icon-btn add-btn" (click)="openPopup(false, null)">
+        <div class="add-icon"></div>
+        <div class="btn-txt">ADICIONAR</div>
+      </button>
+    </div>
+
+    <ul class="projects">
+      <app-banner-personal-work
+        (emitterOpenPopup)="openPopup(true, $event)"
+        *ngFor="let personalWork of searchedPersonalWorks"
+        [personalWork]="personalWork"
+        (emitterOpenAlert)="openAlert($event)"
+      ></app-banner-personal-work>
+    </ul>
+  </main>
+</section>
+
+<app-popup-personal-work
+  #appPopupPesonalWork
+  [open]="open"
+  (emitterClosePopup)="openPopup(false, null)"
+  (refreshList)="ngAfterViewInit()"
+  [personalWork]="personalWork"
+  [media]="media"
+></app-popup-personal-work>
+

@@ -1,0 +1,217 @@
+<section class="popup {{ open }}" #popupCadastrar>
+  <span class="close-popup" (click)="closePopup(ImagePopupImg, file_file_name)"
+    >&times;</span
+  >
+  <h1 *ngIf="!personalWork; else personalWorkEdit">Adicionar Trabalho Pessoal</h1>
+  <ng-template #personalWorkEdit>
+    <h1>Editar Trabalho Pessoal</h1>
+  </ng-template>
+  <form
+    (ngSubmit)="onSubmit(ImagePopupImg, file_file_name)"
+    class="form-popup"
+    [formGroup]="popupForm"
+    #formDir="ngForm"
+    enctype="multipart/form-data"
+  >
+    <div>
+      <div class="main-image-popup">
+        <input
+          type="file"
+          #ImagePopup
+          class="file-upload"
+          accept="image/*"
+          (change)="fileChange($event, ImagePopupImg)"
+          formControlName="imgPopupProfile"
+        />
+        <div>
+          <div>
+            <div>
+              <img
+                src="{{ imgUpload }}"
+                alt="Selecionar a imagem principal do projeto"
+                #ImagePopupImg
+                (click)="photoClick(ImagePopup)"
+              />
+              <input type="hidden" #inputImg />
+            </div>
+          </div>
+        </div>
+        <button
+          class="remove-img"
+          type="button"
+          (click)="removeImg(ImagePopupImg)"
+        >
+          REMOVER
+        </button>
+      </div>
+      <div class="popup-fields">
+        <div class="form-control">
+          <input
+            type="text"
+            required=""
+            placeholder=" "
+            formControlName="popupName"
+            maxlength="50"
+          />
+          <label>
+            <span style="transition-delay: 0ms">N</span>
+            <span style="transition-delay: 50ms">o</span>
+            <span style="transition-delay: 100ms">m</span>
+            <span style="transition-delay: 150ms">e</span>
+          </label>
+          <div
+            *ngIf="popupName.invalid && formDir.submitted && !refreshValidator"
+            class="validation-error"
+          >
+            <p *ngIf="popupName.errors?.['required']">Campo obrigatório</p>
+          </div>
+        </div>
+        <div class="form-control">
+          <input
+            type="text"
+            required=""
+            placeholder=" "
+            formControlName="popupLink"
+            maxlength="250"
+          />
+          <label>
+            <span style="transition-delay: 0ms">Link</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 50ms">do</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 100ms">Trabalho</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 150ms">Pessoal</span>
+          </label>
+          <div
+            *ngIf="popupLink.invalid && formDir.submitted && !refreshValidator"
+            class="validation-error"
+          >
+            <p *ngIf="popupLink.errors?.['required']">Campo obrigatório</p>
+          </div>
+        </div>
+        <div class="form-control">
+          <app-dropdown-categories
+            (emitCategoryName)="setCategory($event)"
+            [category]="category"
+          >
+          </app-dropdown-categories>
+          <input
+            *ngIf="category"
+            type="hidden"
+            [value]="category!.idCategory"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="field-description">
+      <fieldset>
+        <legend>Descrição</legend>
+        <textarea
+          maxlength="100"
+          class="popup-description"
+          formControlName="popupDescription"
+        ></textarea>
+      </fieldset>
+      <div
+        *ngIf="
+          popupDescription.invalid && formDir.submitted && !refreshValidator
+        "
+        class="validation-error description"
+      >
+        <p class="description" *ngIf="popupDescription.errors?.['required']">
+          Campo obrigatório
+        </p>
+      </div>
+    </div>
+    <div class="media-project">
+      <div>
+        <input
+          #fileUpload
+          class="file-upload"
+          type="file"
+          (change)="updateTitle($event, file_file_name)"
+          accept="image/*"
+          formControlName="imgPopupPacket"
+        />
+        <div class="upload-image">
+          <label for="fileUpload" (click)="clickImagePacket(fileUpload)">
+            <img
+              src="/assets/img/uparImagem.png"
+              alt="Selecione uma imagem demonstrativa do projeto"
+            />
+          </label>
+          <input
+            type="text"
+            #file_file_name
+            class="form-control"
+            placeholder="{{ mediaImgUpload }}"
+            readonly="readonly"
+            title="{{ mediaImgUpload }}"
+          />
+        </div>
+        <span class="remove-img" (click)="removeMediaImg(file_file_name)"
+          >&times;</span
+        >
+      </div>
+
+      <div>
+        <div class="form-control">
+          <input
+            type="text"
+            required=""
+            placeholder=" "
+            formControlName="packetLink1"
+            maxlength="250"
+          />
+          <label>
+            <span style="transition-delay: 0ms">Link</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 50ms">do</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 100ms">Youtube</span>
+          </label>
+        </div>
+        <div
+          *ngIf="packetLink1.invalid && formDir.submitted && !refreshValidator"
+          class="validation-error packet-link"
+        >
+          <p *ngIf="packetLink1.errors?.['required']">Campo obrigatório</p>
+          <p *ngIf="packetLink1.errors?.['pattern']">
+            link do youtube inválido
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-control">
+          <input
+            type="text"
+            required=""
+            placeholder=" "
+            formControlName="packetLink2"
+            maxlength="250"
+          />
+          <label>
+            <span style="transition-delay: 0ms">Link</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 50ms">do</span>
+            <span style="transition-delay: 0ms"> </span>
+            <span style="transition-delay: 100ms">Youtube</span>
+          </label>
+        </div>
+        <div
+          *ngIf="packetLink2.invalid && formDir.submitted && !refreshValidator"
+          class="validation-error packet-link"
+        >
+          <p *ngIf="packetLink2.errors?.['required']">Campo obrigatório</p>
+          <p *ngIf="packetLink2.errors?.['pattern']">
+            link do youtube inválido
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <app-form-button>Confirmar</app-form-button>
+  </form>
+</section>

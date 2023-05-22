@@ -1,0 +1,12 @@
+<div class="comments-section {{ showing }}">
+  <div class="comments" #comments>
+    <div *ngFor="let commentary of commentarys">
+      <app-commentary [commentary]="commentary" (emitterDeleteCommentary)="deleteCommentary($event)"></app-commentary>
+    </div>
+    <h3 *ngIf="commentarys && commentarys.length < 1">Não há comentários</h3>
+  </div>  
+  <div class="input">
+    <input type="text" placeholder="Digite o seu comentário" [(ngModel)]="txtCommentary" />
+    <app-form-button [class]="'small'" (click)="comment(comments)" #appFormButton>COMENTAR</app-form-button>
+  </div>
+</div>

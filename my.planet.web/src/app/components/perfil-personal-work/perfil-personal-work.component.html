@@ -1,0 +1,43 @@
+<div [ngClass]="popupVideo">
+  <span class="close-popup" (click)="openVideo(iframeVideo)">&times;</span>
+  <iframe
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    #iframeVideo
+  ></iframe>
+</div>
+<div class="profile-project" *ngIf="media">
+  <div class="profile-project-first-section">
+    <div class="figure">
+      <img src="{{ personalWorkImg }}" alt="Imagem principal do projeto" />
+    </div>
+    <div>
+      <p>{{ personalWork.personalWorkName }}</p>
+      <a href="{{ personalWork.link }}" target="_blank">
+        {{ personalWork.link }}
+      </a>
+      <textarea readonly>{{ personalWork.description }}</textarea>
+    </div>
+  </div>
+  <div class="figure">
+    <img src="{{ mediaImg }}" alt="Imagem demonstrando mais sobre o projeto" />
+    <app-thumbnail
+      [link]="media.firstVideo"
+      (click)="openVideo(iframeVideo, media.firstVideo)"
+    ></app-thumbnail>
+    <app-thumbnail
+      [link]="media.secondVideo"
+      (click)="openVideo(iframeVideo, media.secondVideo)"
+    ></app-thumbnail>
+  </div>
+
+  <div class="comments-section">
+    <span (click)="showComments(spanComments, arrowDownComments)">
+      <span #spanComments>Ver comentários</span>
+      <img src="/assets/img/arrow_down.png" alt="Abrir sessão de comentários" #arrowDownComments>
+    </span>
+    <app-comments-section [personalWork]="personalWork" [showing]="showCommentsClass"></app-comments-section>
+  </div>
+</div>

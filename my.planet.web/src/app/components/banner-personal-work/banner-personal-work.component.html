@@ -1,0 +1,33 @@
+<li>
+  <div class="info-projects">
+    <img
+      class="main-img"
+      src="{{ personalWorkImg }}"
+      alt="Imagem principal do trabalho pessoal"
+    />
+    <div class="titles">
+      <p>{{ personalWork.personalWorkName }}</p>
+      <a href="{{ personalWork.link }}" target="_blank">
+        {{ personalWork.link }}
+      </a>
+    </div>
+  </div>
+  <div class="btn-projects">
+    <img
+      class="visibility"
+      [src]="this.visibility"
+      alt="Botão para alterar a visibilidade do trabalho pessoal"
+      (click)="updateVisibility()"
+    />
+    <img
+      src="/assets/img/edit 2_.png"
+      alt="Botão para editar o trabalho pessoal"
+      (click)="openPopup(personalWork.idPersonalWork!)"
+    />
+    <img
+      src="/assets/img/trash 2_.png"
+      alt="Botão para excluir o trabalho pessoal"
+      (click)="openAlert(personalWork.idPersonalWork!)"
+    />
+  </div>
+</li>

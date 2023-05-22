@@ -1,0 +1,14 @@
+<button (click)="showCategories(!showCategoriesDrop)" type="button">
+  <p *ngIf="category; else noCategory">
+    {{ category.nameCategory }}
+  </p>
+  <ng-template #noCategory>
+    Categoria
+  </ng-template>
+  <img src="/assets/img/arrow_down.png" alt="">
+</button>
+<div class="categories" [ngClass]="{'show': showCategoriesDrop}" (mouseleave)="showCategories(false)">
+  <ul *ngIf="categories">
+    <li *ngFor="let category of categories" (click)="emitCategory(category)">{{category.nameCategory}}</li>
+  </ul>
+</div>

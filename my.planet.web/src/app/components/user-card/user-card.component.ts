@@ -1,8 +1,8 @@
 import { HttpResponse } from '@angular/common/http'
 import { Component, Input, OnInit } from '@angular/core'
-import { Project } from 'src/app/interfaces/Project'
+import { PersonalWork } from 'src/app/interfaces/PersonalWork'
 import { User } from 'src/app/interfaces/User'
-import { ProjectService } from 'src/app/services/project.service'
+import { PersonalWorkService } from 'src/app/services/personal-works.service'
 import { UserService } from 'src/app/services/user.service'
 
 @Component({
@@ -12,11 +12,11 @@ import { UserService } from 'src/app/services/user.service'
 })
 export class UserCardComponent implements OnInit {
   @Input() user!: User
-  projects!: Project[]
+  personalWorks!: PersonalWork[]
   userImg: string = '/assets/img/default_profile.png'
 
   constructor(
-    private projectService: ProjectService,
+    private personalWorkService: PersonalWorkService,
     private userService: UserService
   ) {}
 
@@ -29,8 +29,8 @@ export class UserCardComponent implements OnInit {
       })
     else this.userImg = '/assets/img/default_profile.png'
 
-    this.projectService.getAllByUser(this.user.id!).subscribe((item) => {
-      this.projects = item as Project[]
+    this.personalWorkService.getAllByUser(this.user.id!).subscribe((item) => {
+      this.personalWorks = item as PersonalWork[]
     })
   }
 }

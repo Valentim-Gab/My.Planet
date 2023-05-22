@@ -73,6 +73,5 @@ export class FormMainComponent implements OnInit {
   deleteUser() {
     const id = Number(this.route.snapshot.paramMap.get('id'))
     this.userService.deleteUser(id).subscribe()
-    this.router.navigate(['/'])
   }
 }
