@@ -1,12 +1,17 @@
 package site.my.planet.controller;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
 import site.my.planet.model.UserModel;
+import site.my.planet.security.JWTAutentication;
 import site.my.planet.service.UserService;
 
 @RestController
@@ -46,26 +51,52 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") long id) {
-        this.userService.delete(id);
+    public ResponseEntity<Object> delete(@PathVariable("id") long id,
+            HttpServletRequest request) {
+        if (verifyUserLogged(id, request)) {
+            return this.userService.delete(id); 
+        }
+
+        return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable("id") long id, @RequestBody UserModel user) {
-        try {
-            this.userService.update(id, user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("Email já cadastrado!", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> update(@PathVariable("id") long id,
+            @RequestBody UserModel user,HttpServletRequest request) {
+        if (verifyUserLogged(id, request)) {
+            try {
+                this.userService.update(id, user);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new ResponseEntity<>("Email já cadastrado!", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
+        }     
     }
 
     @PatchMapping("/{id}")
-    public void updateSpecific(@PathVariable("id") long id,
+    public ResponseEntity<Object> updateSpecific(@PathVariable("id") long id,
             @RequestParam("description") String description,
             @RequestParam("img") Optional<MultipartFile> multipartFile,
-            @RequestParam("deleteImage") Optional<String> deleteImage) {
-        this.userService.updateSpecific(id, description, multipartFile, deleteImage);
+            @RequestParam("deleteImage") Optional<String> deleteImage,
+            HttpServletRequest request) {
+        if (verifyUserLogged(id, request)) {
+            return this.userService.updateSpecific(id, description, multipartFile, deleteImage);
+        }
+
+        return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
+    }
+
+    public boolean verifyUserLogged(long id, HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Long subToken = Long.parseLong(new JWTAutentication().getSubToken(token));
+        
+        try {
+            return subToken instanceof Long && subToken != null && id == subToken;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }

@@ -3,6 +3,7 @@ package site.my.planet.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,37 +50,57 @@ public class UserService {
         this.userDao.save(user);
     }
 
-    public void delete(long id) {
-        this.userDao.deleteById(id);
+    public ResponseEntity<Object> delete(long id) {
+        try {
+            this.userDao.deleteById(id);
+
+            return new ResponseEntity<>("Usuário deletado", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao deletar o usuário",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
-    public void update(long id, UserModel user) {
-        UserModel userUpdate = new UserModel();
-        userUpdate = this.userDao.getReferenceById(id);
-        userUpdate.setUsername(user.getUsername());
-        userUpdate.setEmail(user.getEmail().toLowerCase());
-        userUpdate.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userUpdate.setDescription(user.getDescription());
-        userUpdate.setImg(user.getImg());
-        userUpdate.setPermission(user.getPermission());
-        this.userDao.flush();
+    public ResponseEntity<Object> update(long id, UserModel user) {
+        try {
+            UserModel userUpdate = new UserModel();
+            userUpdate = this.userDao.getReferenceById(id);
+            userUpdate.setUsername(user.getUsername());
+            userUpdate.setEmail(user.getEmail().toLowerCase());
+            userUpdate.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            userUpdate.setDescription(user.getDescription());
+            userUpdate.setImg(user.getImg());
+            userUpdate.setPermission(user.getPermission());
+            this.userDao.flush();
+
+            return new ResponseEntity<>("Usuário atualizado", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao atualizar o usuário",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
-    public void updateSpecific(long id, String description,
+    public ResponseEntity<Object> updateSpecific(long id, String description,
             Optional<MultipartFile> multipartFile,
             Optional<String> deleteImage) {
+        try {
+            UserModel userUpdate = new UserModel();
+            userUpdate = this.userDao.getReferenceById(id);
+            userUpdate.setDescription(description);
 
-        UserModel userUpdate = new UserModel();
-        userUpdate = this.userDao.getReferenceById(id);
-        userUpdate.setDescription(description);
+            if (multipartFile.isPresent())
+                userUpdate.setImg(this.imageUtil.save(multipartFile.get(), id, "user"));
+            else if (deleteImage.isPresent())
+                userUpdate.setImg("");
+            else
+                userUpdate.setImg(userUpdate.getImg());
 
-        if (multipartFile.isPresent())
-            userUpdate.setImg(this.imageUtil.save(multipartFile.get(), id, "user"));
-        else if (deleteImage.isPresent())
-            userUpdate.setImg("");
-        else
-            userUpdate.setImg(userUpdate.getImg());
+            this.userDao.flush();
 
-        this.userDao.flush();
+            return new ResponseEntity<>("Usuário deletado", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao deletar o usuário",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 }
