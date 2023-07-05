@@ -66,33 +66,37 @@ public class PersonalWorkController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") long id,
+    public void delete(@PathVariable("id") long id,
             HttpServletRequest request) {
-        this.personalWorkService.delete(id);
-
         if (verifyUserLogged(id, request)) {
-            //return this.userService.delete(id); 
-            return new ResponseEntity<>("Teste", HttpStatus.OK);  
+            this.personalWorkService.delete(id); 
+        }
+    }
+
+    @SneakyThrows
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable("id") long id, @RequestParam("personal-work") String personalWork,
+            @RequestParam("img") Optional<MultipartFile> multipartFile,
+            @RequestParam("deleteImage") Optional<String> deleteImage,
+            HttpServletRequest request) {
+        if (verifyUserLogged(id, request)) {
+            PersonalWorkRequest personalWorkRequest = new ObjectMapper().readValue(
+                    personalWork, PersonalWorkRequest.class);
+    
+            return this.personalWorkService.update(id, personalWorkRequest, multipartFile, deleteImage); 
         }
 
         return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
     }
 
-    @SneakyThrows
-    @PutMapping("/{id}")
-    public void update(@PathVariable("id") long id, @RequestParam("personal-work") String personalWork,
-            @RequestParam("img") Optional<MultipartFile> multipartFile,
-            @RequestParam("deleteImage") Optional<String> deleteImage) {
-
-        PersonalWorkRequest personalWorkRequest = new ObjectMapper().readValue(
-                personalWork, PersonalWorkRequest.class);
-
-        this.personalWorkService.update(id, personalWorkRequest, multipartFile, deleteImage);
-    }
-
     @PatchMapping("/public/visibility")
-    public PersonalWork updateVisibility(@RequestBody PersonalWork personalWork) {
-        return this.personalWorkService.updateVisibility(personalWork);
+    public ResponseEntity<Object> updateVisibility(@RequestBody PersonalWork personalWork,
+            HttpServletRequest request) {
+        if (verifyUserLogged(personalWork.getIdPersonalWork(), request)) {
+            return this.personalWorkService.updateVisibility(personalWork);
+        }
+
+        return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
     }
 
     public boolean verifyUserLogged(long id, HttpServletRequest request) {

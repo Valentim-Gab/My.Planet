@@ -3,6 +3,7 @@ package site.my.planet.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -94,34 +95,49 @@ public class PersonalWorkService {
         this.personalWorkDao.deleteById(id);
     }
 
-    public void update(long id, PersonalWorkRequest personalWorkRequest,
+    public ResponseEntity<Object> update(long id, PersonalWorkRequest personalWorkRequest,
             Optional<MultipartFile> multipartFile, Optional<String> deleteImage) {
-        PersonalWork personalWork = new PersonalWork();
-        personalWork = this.personalWorkDao.getReferenceById(id);
+        try {
+            PersonalWork personalWork = new PersonalWork();
+            personalWork = this.personalWorkDao.getReferenceById(id);
 
-        if (personalWorkRequest.getIdCategory() > -1) {
-            Category category = new Category();
-            category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
-            personalWork.setCategory(category);
-        } else
-            personalWork.setCategory(null);
+            if (personalWorkRequest.getIdCategory() > -1) {
+                Category category = new Category();
 
-        personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
-        personalWork.setDescription(personalWorkRequest.getDescription());
-        personalWork.setLink(personalWorkRequest.getLink());
+                category = this.categoryDao.getReferenceById(personalWorkRequest.getIdCategory());
+                personalWork.setCategory(category);
+            } else {
+                personalWork.setCategory(null);
+            }
+            personalWork.setPersonalWorkName(personalWorkRequest.getPersonalWorkName());
+            personalWork.setDescription(personalWorkRequest.getDescription());
+            personalWork.setLink(personalWorkRequest.getLink());
 
-        if (multipartFile.isPresent())
-            personalWork.setImg(this.imageUtil.save(
-                    multipartFile.get(), id, "personal_work"));
-        else if (deleteImage.isPresent())
-            personalWork.setImg("");
-        else
-            personalWork.setImg(personalWork.getImg());
+            if (multipartFile.isPresent())
+                personalWork.setImg(this.imageUtil.save(
+                        multipartFile.get(), id, "personal_work"));
+            else if (deleteImage.isPresent())
+                personalWork.setImg("");
+            else
+                personalWork.setImg(personalWork.getImg());
 
-        this.personalWorkDao.flush();
+            this.personalWorkDao.flush();
+
+            return new ResponseEntity<>("Trabalho pessoal deletado", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao atualizar o trabalho pessoal",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
-    public PersonalWork updateVisibility(PersonalWork personalWork) {
-        return this.personalWorkDao.save(personalWork);
+    public ResponseEntity<Object> updateVisibility(PersonalWork personalWork) {
+        try {
+            PersonalWork personalWork2 = this.personalWorkDao.save(personalWork);
+
+            return new ResponseEntity<>(personalWork2, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao atualizar o trabalho pessoal",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 }

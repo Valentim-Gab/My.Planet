@@ -51,13 +51,11 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") long id,
+    public void delete(@PathVariable("id") long id,
             HttpServletRequest request) {
         if (verifyUserLogged(id, request)) {
-            return this.userService.delete(id); 
+            this.userService.delete(id); 
         }
-
-        return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
     }
 
     @PutMapping("/{id}")
@@ -77,16 +75,14 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> updateSpecific(@PathVariable("id") long id,
+    public void updateSpecific(@PathVariable("id") long id,
             @RequestParam("description") String description,
             @RequestParam("img") Optional<MultipartFile> multipartFile,
             @RequestParam("deleteImage") Optional<String> deleteImage,
             HttpServletRequest request) {
         if (verifyUserLogged(id, request)) {
-            return this.userService.updateSpecific(id, description, multipartFile, deleteImage);
+            this.userService.updateSpecific(id, description, multipartFile, deleteImage);
         }
-
-        return new ResponseEntity<>("Não autorizado", HttpStatus.UNAUTHORIZED);  
     }
 
     public boolean verifyUserLogged(long id, HttpServletRequest request) {

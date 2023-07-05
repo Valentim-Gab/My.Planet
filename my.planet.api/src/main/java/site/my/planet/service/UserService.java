@@ -50,15 +50,8 @@ public class UserService {
         this.userDao.save(user);
     }
 
-    public ResponseEntity<Object> delete(long id) {
-        try {
-            this.userDao.deleteById(id);
-
-            return new ResponseEntity<>("Usuário deletado", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erro ao deletar o usuário",
-                    HttpStatus.BAD_REQUEST);
-        }
+    public void delete(long id) {
+        this.userDao.deleteById(id);
     }
 
     public ResponseEntity<Object> update(long id, UserModel user) {
@@ -80,27 +73,21 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<Object> updateSpecific(long id, String description,
-            Optional<MultipartFile> multipartFile,
-            Optional<String> deleteImage) {
-        try {
-            UserModel userUpdate = new UserModel();
-            userUpdate = this.userDao.getReferenceById(id);
-            userUpdate.setDescription(description);
+    public void updateSpecific(long id, String description,
+        Optional<MultipartFile> multipartFile,
+        Optional<String> deleteImage) {
 
-            if (multipartFile.isPresent())
-                userUpdate.setImg(this.imageUtil.save(multipartFile.get(), id, "user"));
-            else if (deleteImage.isPresent())
-                userUpdate.setImg("");
-            else
-                userUpdate.setImg(userUpdate.getImg());
+        UserModel userUpdate = new UserModel();
+        userUpdate = this.userDao.getReferenceById(id);
+        userUpdate.setDescription(description);
 
-            this.userDao.flush();
+        if (multipartFile.isPresent())
+            userUpdate.setImg(this.imageUtil.save(multipartFile.get(), id, "user"));
+        else if (deleteImage.isPresent())
+            userUpdate.setImg("");
+        else
+            userUpdate.setImg(userUpdate.getImg());
 
-            return new ResponseEntity<>("Usuário deletado", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erro ao deletar o usuário",
-                    HttpStatus.BAD_REQUEST);
-        }
+        this.userDao.flush();
     }
 }
