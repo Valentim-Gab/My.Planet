@@ -25,14 +25,4 @@ public class CategoryController {
     public ArrayList<Category> getAll() {
         return this.categoryService.getAll();
     }
-
-    // @PostMapping()
-    // public void save(@RequestBody Category category) {
-    // this.categoryService.save(category);
-    // }
-
-    // @DeleteMapping("/{id}")
-    // public void delete(@PathVariable("id") long id) {
-    // this.categoryService.delete(id);
-    // }
 }

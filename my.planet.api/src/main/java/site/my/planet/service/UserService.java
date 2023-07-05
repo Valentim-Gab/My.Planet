@@ -3,6 +3,7 @@ package site.my.planet.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -53,21 +54,28 @@ public class UserService {
         this.userDao.deleteById(id);
     }
 
-    public void update(long id, UserModel user) {
-        UserModel userUpdate = new UserModel();
-        userUpdate = this.userDao.getReferenceById(id);
-        userUpdate.setUsername(user.getUsername());
-        userUpdate.setEmail(user.getEmail().toLowerCase());
-        userUpdate.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userUpdate.setDescription(user.getDescription());
-        userUpdate.setImg(user.getImg());
-        userUpdate.setPermission(user.getPermission());
-        this.userDao.flush();
+    public ResponseEntity<Object> update(long id, UserModel user) {
+        try {
+            UserModel userUpdate = new UserModel();
+            userUpdate = this.userDao.getReferenceById(id);
+            userUpdate.setUsername(user.getUsername());
+            userUpdate.setEmail(user.getEmail().toLowerCase());
+            userUpdate.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            userUpdate.setDescription(user.getDescription());
+            userUpdate.setImg(user.getImg());
+            userUpdate.setPermission(user.getPermission());
+            this.userDao.flush();
+
+            return new ResponseEntity<>("Usuário atualizado", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao atualizar o usuário",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
     public void updateSpecific(long id, String description,
-            Optional<MultipartFile> multipartFile,
-            Optional<String> deleteImage) {
+        Optional<MultipartFile> multipartFile,
+        Optional<String> deleteImage) {
 
         UserModel userUpdate = new UserModel();
         userUpdate = this.userDao.getReferenceById(id);

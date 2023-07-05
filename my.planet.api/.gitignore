@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### entities images ###
+src/main/resources/static/temp/user/*
+src/main/resources/static/temp/personal_work/*
+src/main/resources/static/temp/media/*
