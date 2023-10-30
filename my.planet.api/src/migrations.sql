@@ -8,6 +8,11 @@ CREATE TABLE users (
 	permission CHAR(1) NOT NULL DEFAULT 'u'
 );
 
+CREATE TABLE category (
+	id_category SERIAL PRIMARY KEY,
+	name_category VARCHAR(40)
+);
+
 CREATE TABLE personal_work (
 	id_personal_work SERIAL PRIMARY KEY,
 	personal_work_name VARCHAR(55) NOT NULL,
@@ -17,7 +22,7 @@ CREATE TABLE personal_work (
 	public BOOLEAN DEFAULT true,
 	id_user INT NOT NULL,
 	id_category INT,
-	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade
+	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade,
 	FOREIGN KEY (id_category) REFERENCES category (id_category) on delete cascade
 );
 
@@ -37,11 +42,6 @@ CREATE TABLE commentary (
 	id_personal_work INT NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users (id) on delete cascade,
 	FOREIGN KEY (id_personal_work) REFERENCES personal_work (id_personal_work) on delete cascade
-);
-
-CREATE TABLE category (
-	id_category SERIAL PRIMARY KEY,
-	name_category VARCHAR(40)
 );
 
 INSERT INTO users
