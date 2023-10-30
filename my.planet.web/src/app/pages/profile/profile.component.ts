@@ -16,7 +16,7 @@ import { CategoryButtonComponent } from 'src/app/components/category-button/cate
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  styleUrls: ['./profile.component.scss', './popup-registration.scss'],
 })
 export class ProfileComponent implements OnInit {
   medias!: Media[]
