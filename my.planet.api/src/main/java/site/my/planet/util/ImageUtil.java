@@ -83,7 +83,7 @@ public class ImageUtil {
     public void deleteImage(File dir, long id) {
         File[] files = dir.listFiles();
 
-        if (files.length > 0) {
+        if (files != null && files.length > 0) {
             for (File image : files)
                 if (image.getName().contains("id=" + Long.toString(id)))
                     image.delete();
