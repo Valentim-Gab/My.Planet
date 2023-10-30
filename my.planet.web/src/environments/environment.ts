@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseApiUrl: 'http://localhost:8080/myplanet'
+  baseApiUrl: process.env['BASE_API_URL']
 };
 
 /*
