@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseApiUrl: process.env['BASE_API_URL']
+  baseApiUrl: 'https://my-planet.onrender.com/myplanet'
 };
