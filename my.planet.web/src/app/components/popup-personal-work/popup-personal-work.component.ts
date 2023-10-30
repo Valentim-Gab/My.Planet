@@ -14,7 +14,7 @@ import { Category } from 'src/app/interfaces/Category'
 @Component({
   selector: 'app-popup-personal-work',
   templateUrl: './popup-personal-work.component.html',
-  styleUrls: ['./popup-personal-work.component.scss'],
+  styleUrls: ['./popup-personal-work.component.scss', './form-popup.scss'],
 })
 export class PopupPersonalWorkComponent implements OnInit {
   @Output() emitterClosePopup: EventEmitter<Event> = new EventEmitter()
