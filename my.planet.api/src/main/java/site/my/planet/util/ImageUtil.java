@@ -18,7 +18,14 @@ public class ImageUtil {
     public String save(MultipartFile multipartFile, Long id, String table) {
         String rootDirectory = "src/main/resources/static/temp/" + table;
         File dir = new File(rootDirectory);
-
+        
+        if (!dir.exists()) {
+            if (dir.mkdirs())
+                System.out.println("Diretório criado com sucesso: " + dir.getAbsolutePath());
+            else
+                System.err.println("Falha ao criar o diretório: " + dir.getAbsolutePath());
+        }
+        
         try {
             String fileName = multipartFile.getOriginalFilename();
             String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -29,11 +36,12 @@ public class ImageUtil {
             File fileDest = new File(filePath);
             multipartFile.transferTo(fileDest);
             compressImage(filePath);
-
+        
             return fileName;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return "";
     }
 
