@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  my.planet.api:
+    build: ./my.planet.api
+    container_name: my.planet.api
+    environment:
+      DATABASE_URL: # ADD VALUE
+      DATABASE_USERNAME: # ADD VALUE
+      DATABASE_PASSWORD: # ADD VALUE
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    networks:
+      - pg_network
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: # ADD VALUE
+      POSTGRES_PASSWORD: # ADD VALUE
+      POSTGRES_DB: my.planet
+    ports:
+      - 5434:5432
+    networks:
+      - pg_network
+
+networks:
+  pg_network:
+    driver: bridge

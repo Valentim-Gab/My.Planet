@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseApiUrl: 'https://my-planet.onrender.com/myplanet'
+  baseApiUrl: 'http://168.75.83.51:8080/myplanet'
 };
 
 /*
